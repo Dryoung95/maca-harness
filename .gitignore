@@ -1,0 +1,36 @@
+# Build artifacts from torch cpp_extension JIT (≈2.2 GB — never commit)
+*/build/
+build/
+optloop/*build/
+optloop/mt3/
+optloop/diagbuild/
+batch_build/
+
+# Extension binaries & object files
+*.so
+*.o
+*.ninja
+*.ninja_deps
+*.ninja_log
+*.fatbin
+*.cubin
+
+# PyTorch extension lock & temp files
+*.lock
+__pycache__/
+*.pyc
+
+# mcTracer reports (large, regenerable)
+optloop/profile/
+
+# Caches
+.pytest_cache/
+
+# Large raw logs (keep summarized results, drop raw stdout dumps)
+optloop/longloop2.log
+optloop/sweep_bf16_out.log
+
+# Local environment / secrets
+.env
+*.token
+optloop/*build*/

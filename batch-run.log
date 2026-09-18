@@ -1,0 +1,860 @@
+W0915 07:51:42.063000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:51:42.063000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[batch] GPU: MetaX C500
+[batch] level 1: 100 problems
+W0915 07:52:25.865000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:52:25.865000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P  1 1_Square_matrix_multiplication_.py                           OK passed
+W0915 07:53:09.441000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:53:09.441000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P  2 2_Standard_matrix_multiplication_.py                         OK passed
+W0915 07:53:55.615000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:53:55.615000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P  3 3_Batched_matrix_multiplication.py                           OK passed
+  L1 P  4 4_Matrix_vector_multiplication_.py                           SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2148532224 elems (8.59 GB)
+  L1 P  5 5_Matrix_scalar_multiplication.py                            SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1073741824 elems (4.29 GB)
+W0915 07:54:41.618000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:54:41.618000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P  6 6_Matmul_with_large_K_dimension_.py                          OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.81 GiB is free. Of the allocated memory 9.08 GiB is allocated by PyTorch, and 3.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 07:55:24.756000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:55:24.756000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.81 GiB is free. Of the allocated memory 9.08 GiB is allocated by PyTorch, and 3.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P  7 7_Matmul_with_small_K_dimension_.py                          FAIL failed [algorithm_error] correctness mismatch
+W0915 07:56:08.762000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:56:08.762000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P  8 8_Matmul_with_irregular_shapes_.py                           OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.81 GiB is free. Of the allocated memory 9.07 GiB is allocated by PyTorch, and 3.01 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 07:56:52.026000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:56:52.026000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.81 GiB is free. Of the allocated memory 9.07 GiB is allocated by PyTorch, and 3.01 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P  9 9_Tall_skinny_matrix_multiplication_.py                      FAIL failed [algorithm_error] correctness mismatch
+W0915 07:57:35.088000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:57:35.088000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 10 10_3D_tensor_matrix_multiplication.py                        OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 840.00 MiB is free. Of the allocated memory 13.81 GiB is allocated by PyTorch, and 257.25 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 07:58:20.635000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:58:20.635000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 3.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 840.00 MiB is free. Of the allocated memory 13.81 GiB is allocated by PyTorch, and 257.25 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 11 11_4D_tensor_matrix_multiplication.py                        FAIL failed [algorithm_error] correctness mismatch
+W0915 07:59:03.873000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:59:03.873000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 12 12_Matmul_with_diagonal_matrices_.py                         OK passed
+W0915 07:59:48.036000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 07:59:48.036000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 13 13_Matmul_for_symmetric_matrices.py                          OK passed
+W0915 08:00:31.847000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:00:31.847000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 14 14_Matmul_for_upper_triangular_matrices.py                   OK passed
+W0915 08:01:15.952000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:01:15.952000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 15 15_Matmul_for_lower_triangular_matrices.py                   OK passed
+W0915 08:01:59.501000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:01:59.501000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 16 16_Matmul_with_transposed_A.py                               OK passed
+W0915 08:02:43.107000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:02:43.107000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 17 17_Matmul_with_transposed_B.py                               OK passed
+W0915 08:03:27.074000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:03:27.074000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 18 18_Matmul_with_transposed_both.py                            OK passed
+  L1 P 19 19_ReLU.py                                                   SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 20 20_LeakyReLU.py                                              SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 21 21_Sigmoid.py                                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 22 22_Tanh.py                                                   SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 23 23_Softmax.py                                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 24 24_LogSoftmax.py                                             SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 25 25_Swish.py                                                  SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 26 26_GELU_.py                                                  SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 27 27_SELU_.py                                                  SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 28 28_HardSigmoid.py                                            SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 29 29_Softplus.py                                               SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 30 30_Softsign.py                                               SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 31 31_ELU.py                                                    SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 32 32_HardTanh.py                                               SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+  L1 P 33 33_BatchNorm.py                                              SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1073741824 elems (4.29 GB)
+  L1 P 34 34_InstanceNorm.py                                           SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1879048192 elems (7.52 GB)
+  L1 P 35 35_GroupNorm_.py                                             SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1879048192 elems (7.52 GB)
+  L1 P 36 36_RMSNorm_.py                                               SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1879048192 elems (7.52 GB)
+  L1 P 37 37_FrobeniusNorm_.py                                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1879048192 elems (7.52 GB)
+  L1 P 38 38_L1Norm_.py                                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2147450880 elems (8.59 GB)
+  L1 P 39 39_L2Norm_.py                                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2147450880 elems (8.59 GB)
+W0915 08:04:11.799000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:04:11.799000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 40 40_LayerNorm.py                                              OK passed
+  L1 P 41 41_Max_Pooling_1D.py                                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 805306368 elems (3.22 GB)
+  L1 P 42 42_Max_Pooling_2D.py                                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 536870912 elems (2.15 GB)
+  L1 P 43 43_Max_Pooling_3D.py                                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1073741824 elems (4.29 GB)
+  L1 P 44 44_Average_Pooling_1D.py                                     SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 536870912 elems (2.15 GB)
+  L1 P 45 45_Average_Pooling_2D.py                                     SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 4294967296 elems (17.18 GB)
+  L1 P 46 46_Average_Pooling_3D.py                                     SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2147483648 elems (8.59 GB)
+  L1 P 47 47_Sum_reduction_over_a_dimension.py                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+  L1 P 48 48_Mean_reduction_over_a_dimension.py                        SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+  L1 P 49 49_Max_reduction_over_a_dimension.py                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+W0915 08:05:01.534000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:05:01.534000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 50 50_conv_standard_2D__square_input__square_kernel.py          OK passed
+  L1 P 51 51_Argmax_over_a_dimension.py                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+  L1 P 52 52_Argmin_over_a_dimension.py                                SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+  L1 P 53 53_Min_reduction_over_a_dimension.py                         SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2146959360 elems (8.59 GB)
+W0915 08:05:45.154000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:05:45.154000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 54 54_conv_standard_3D__square_input__square_kernel.py          OK passed
+W0915 08:06:30.932000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:06:30.932000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 55 55_conv_standard_2D__asymmetric_input__square_kernel.py      OK passed
+W0915 08:07:15.250000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:07:15.250000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 56 56_conv_standard_2D__asymmetric_input__asymmetric_kernel.py  OK passed
+W0915 08:08:03.572000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:08:03.572000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 57 57_conv_transposed_2D__square_input__square_kernel.py        OK passed
+W0915 08:08:46.596000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:08:46.596000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 58 58_conv_transposed_3D__asymmetric_input__asymmetric_kernel.p OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.46 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.31 GiB is free. Of the allocated memory 10.64 GiB is allocated by PyTorch, and 1.86 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:09:29.840000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:09:29.840000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 2.46 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.31 GiB is free. Of the allocated memory 10.64 GiB is allocated by PyTorch, and 1.86 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 59 59_conv_standard_3D__asymmetric_input__square_kernel.py      FAIL failed [algorithm_error] correctness mismatch
+W0915 08:10:13.732000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:10:13.732000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 60 60_conv_standard_3D__square_input__asymmetric_kernel.py      OK passed
+W0915 08:10:57.743000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:10:57.743000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 61 61_conv_transposed_3D__square_input__square_kernel.py        OK passed
+W0915 08:11:41.555000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:11:41.555000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 62 62_conv_standard_2D__square_input__asymmetric_kernel.py      OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 782, in run_and_check_correctness
+    output_new = model_new(*inputs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 95, in forward
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 73, in forward
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 548, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 543, in _conv_forward
+    return F.conv2d(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 7.97 GiB. GPU 0 has a total capacity of 15.22 GiB of which 5.77 GiB is free. Of the allocated memory 9.03 GiB is allocated by PyTorch, and 3.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:12:27.262000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:12:27.262000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 7.97 GiB. GPU 0 has a total capacity of 15.22 GiB of which 5.77 GiB is free. Of the allocated memory 9.03 GiB is allocated by PyTorch, and 3.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 63 63_conv_standard_2D__square_input__square_kernel.py          FAIL failed [algorithm_error] correctness mismatch
+W0915 08:13:15.634000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:13:15.634000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 64 64_conv_transposed_1D.py                                     OK passed
+W0915 08:14:00.149000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:14:00.149000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 65 65_conv_transposed_2D__square_input__asymmetric_kernel.py    OK passed
+W0915 08:14:44.337000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:14:44.337000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 66 66_conv_standard_3D__asymmetric_input__asymmetric_kernel.py  OK passed
+W0915 08:15:30.064000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:15:30.064000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 67 67_conv_standard_1D.py                                       OK passed
+W0915 08:16:14.697000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:16:14.697000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 68 68_conv_transposed_3D__square_input__asymmetric_kernel.py    OK passed
+W0915 08:17:00.333000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:17:00.333000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 69 69_conv_transposed_2D__asymmetric_input__asymmetric_kernel.p OK passed
+W0915 08:17:47.650000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:17:47.650000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 70 70_conv_transposed_3D__asymmetric_input__square_kernel.py    OK passed
+W0915 08:18:33.470000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:18:33.470000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 71 71_conv_transposed_2D__asymmetric_input__square_kernel.py    OK passed
+W0915 08:19:17.859000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:19:17.859000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 72 72_conv_transposed_3D_asymmetric_input_asymmetric_kernel___s OK passed
+W0915 08:20:03.220000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:20:03.220000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 73 73_conv_transposed_3D_asymmetric_input_square_kernel__stride OK passed
+W0915 08:20:49.221000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:20:49.221000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 74 74_conv_transposed_1D_dilated.py                             OK passed
+W0915 08:21:34.186000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:21:34.186000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 75 75_conv_transposed_2D_asymmetric_input_asymmetric_kernel_str OK passed
+  L1 P 76 76_conv_standard_1D_dilated_strided__.py                     SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 2147450880 elems (8.59 GB)
+W0915 08:22:17.895000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:22:17.895000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 77 77_conv_transposed_3D_square_input_square_kernel___padded___ OK passed
+W0915 08:23:03.471000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:23:03.471000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 78 78_conv_transposed_2D_asymmetric_input_asymmetric_kernel___p OK passed
+W0915 08:23:48.836000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:23:48.836000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 79 79_conv_transposed_1D_asymmetric_input_square_kernel___padde OK passed
+W0915 08:24:33.352000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:24:33.352000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 80 80_conv_standard_2D_square_input_asymmetric_kernel___dilated OK passed
+W0915 08:25:18.074000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:25:18.074000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 81 81_conv_transposed_2D_asymmetric_input_square_kernel___dilat OK passed
+W0915 08:26:05.044000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:26:05.044000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 82 82_conv_depthwise_2D_square_input_square_kernel.py           OK passed
+W0915 08:26:49.830000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:26:49.830000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 83 83_conv_depthwise_2D_square_input_asymmetric_kernel.py       OK passed
+  L1 P 84 84_conv_depthwise_2D_asymmetric_input_square_kernel.py       SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1073741824 elems (4.29 GB)
+W0915 08:27:35.919000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:27:35.919000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 85 85_conv_depthwise_2D_asymmetric_input_asymmetric_kernel.py   OK passed
+W0915 08:28:22.394000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:28:22.394000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 86 86_conv_depthwise_separable_2D.py                            OK passed
+  L1 P 87 87_conv_pointwise_2D.py                                      SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1073741824 elems (4.29 GB)
+W0915 08:29:06.808000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:29:06.808000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 88 88_MinGPTNewGelu.py                                          OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 782, in run_and_check_correctness
+    output_new = model_new(*inputs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 107, in forward
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.69 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:29:59.862000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:29:59.862000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.69 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 89 89_cumsum.py                                                 FAIL failed [algorithm_error] correctness mismatch
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 782, in run_and_check_correctness
+    output_new = model_new(*inputs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 94, in forward
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.69 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:30:53.488000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:30:53.488000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.69 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 90 90_cumprod.py                                                FAIL failed [algorithm_error] correctness mismatch
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 782, in run_and_check_correctness
+    output_new = model_new(*inputs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 76, in forward
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 58, in forward
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.68 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:31:46.765000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:31:46.765000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.68 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 91 91_cumsum_reverse.py                                         FAIL failed [algorithm_error] correctness mismatch
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 782, in run_and_check_correctness
+    output_new = model_new(*inputs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 77, in forward
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "<string>", line 58, in forward
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.67 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:32:40.077000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:32:40.077000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.67 GiB is free. Of the allocated memory 12.06 GiB is allocated by PyTorch, and 0 bytes is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L1 P 92 92_cumsum_exclusive.py                                       FAIL failed [algorithm_error] correctness mismatch
+W0915 08:34:00.738000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:34:00.738000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 93 93_masked_cumsum.py                                          FAIL failed [algorithm_error] correctness mismatch
+W0915 08:35:14.296000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:35:14.296000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 94 94_MSELoss.py                                                FAIL failed [algorithm_error] correctness mismatch
+W0915 08:36:00.145000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:36:00.145000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 95 95_CrossEntropyLoss.py                                       FAIL failed [algorithm_error] correctness mismatch
+W0915 08:37:08.167000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:37:08.167000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 96 96_HuberLoss.py                                              FAIL failed [algorithm_error] correctness mismatch
+  L1 P 97 97_ScaledDotProductAttention.py                              SKIP skipped [invalid_infrastructure] static input too large for C500 16.3GB: 1610612736 elems (6.44 GB)
+W0915 08:38:00.614000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:38:00.614000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 98 98_KLDivLoss.py                                              FAIL failed [algorithm_error] correctness mismatch
+W0915 08:38:53.733000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:38:53.733000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P 99 99_TripletMarginLoss.py                                      OK passed
+W0915 08:39:47.407000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:39:47.407000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L1 P100 100_HingeLoss.py                                             OK passed
+[batch] level 2: 100 problems
+W0915 08:40:32.181000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:40:32.181000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  1 1_Conv2D_ReLU_BiasAdd.py                                     OK passed
+W0915 08:41:16.944000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:41:16.944000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  2 2_ConvTranspose2d_BiasAdd_Clamp_Scaling_Clamp_Divide.py      OK passed
+W0915 08:42:00.387000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:42:00.387000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  3 3_ConvTranspose3d_Sum_LayerNorm_AvgPool_GELU.py              OK passed
+W0915 08:42:46.726000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:42:46.726000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  4 4_Conv2d_Mish_Mish.py                                        OK passed
+W0915 08:43:31.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:43:31.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  5 5_ConvTranspose2d_Subtract_Tanh.py                           OK passed
+W0915 08:44:51.920000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:44:51.920000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  6 6_Conv3d_Softmax_MaxPool_MaxPool.py                          OK passed
+W0915 08:45:36.438000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:45:36.438000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  7 7_Conv3d_ReLU_LeakyReLU_GELU_Sigmoid_BiasAdd.py              OK passed
+W0915 08:46:20.910000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:46:20.910000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  8 8_Conv3d_Divide_Max_GlobalAvgPool_BiasAdd_Sum.py             OK passed
+W0915 08:47:05.323000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:47:05.323000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P  9 9_Matmul_Subtract_Multiply_ReLU.py                           OK passed
+W0915 08:47:54.660000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:47:54.660000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 10 10_ConvTranspose2d_MaxPool_Hardtanh_Mean_Tanh.py             OK passed
+W0915 08:48:39.443000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:48:39.443000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 11 11_ConvTranspose2d_BatchNorm_Tanh_MaxPool_GroupNorm.py       OK passed
+W0915 08:49:23.219000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:49:23.219000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 12 12_Gemm_Multiply_LeakyReLU.py                                OK passed
+W0915 08:50:08.720000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:50:08.720000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 13 13_ConvTranspose3d_Mean_Add_Softmax_Tanh_Scaling.py          OK passed
+W0915 08:50:53.117000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:50:53.117000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 14 14_Gemm_Divide_Sum_Scaling.py                                OK passed
+W0915 08:51:36.219000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:51:36.219000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 15 15_ConvTranspose3d_BatchNorm_Subtract.py                     OK passed
+W0915 08:52:20.935000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:52:20.935000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 16 16_ConvTranspose2d_Mish_Add_Hardtanh_Scaling.py              OK passed
+W0915 08:53:06.221000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:53:06.221000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 17 17_Conv2d_InstanceNorm_Divide.py                             OK passed
+W0915 08:53:50.541000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:53:50.541000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 18 18_Matmul_Sum_Max_AvgPool_LogSumExp_LogSumExp.py             OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 522.00 MiB. GPU 0 has a total capacity of 15.22 GiB of which 298.00 MiB is free. Of the allocated memory 13.74 GiB is allocated by PyTorch, and 499.00 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 08:54:40.138000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:54:40.138000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 522.00 MiB. GPU 0 has a total capacity of 15.22 GiB of which 298.00 MiB is free. Of the allocated memory 13.74 GiB is allocated by PyTorch, and 499.00 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L2 P 19 19_ConvTranspose2d_GELU_GroupNorm.py                         FAIL failed [algorithm_error] correctness mismatch
+W0915 08:55:23.213000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:55:23.213000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 20 20_ConvTranspose3d_Sum_ResidualAdd_Multiply_ResidualAdd.py   OK passed
+W0915 08:56:07.882000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:56:07.882000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 21 21_Conv2d_Add_Scale_Sigmoid_GroupNorm.py                     OK passed
+W0915 08:56:52.953000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:56:52.953000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 22 22_Matmul_Scale_ResidualAdd_Clamp_LogSumExp_Mish.py          OK passed
+W0915 08:57:37.115000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:57:37.115000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 23 23_Conv3d_GroupNorm_Mean.py                                  OK passed
+W0915 08:58:20.470000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:58:20.470000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 24 24_Conv3d_Min_Softmax.py                                     OK passed
+W0915 08:59:04.828000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:59:04.828000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 25 25_Conv2d_Min_Tanh_Tanh.py                                   OK passed
+W0915 08:59:51.385000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 08:59:51.385000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 26 26_ConvTranspose3d_Add_HardSwish.py                          OK passed
+W0915 09:00:37.013000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:00:37.013000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 27 27_Conv3d_HardSwish_GroupNorm_Mean.py                        OK passed
+/opt/conda/lib/python3.10/site-packages/torch/nn/modules/instancenorm.py:115: UserWarning: input's size at dim=1 does not match num_features. You can silence this warning by not passing in num_features, which is not used because affine=False
+  warnings.warn(
+W0915 09:01:21.530000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:01:21.530000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 28 28_BMM_InstanceNorm_Sum_ResidualAdd_Multiply.py              OK passed
+W0915 09:02:07.104000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:02:07.104000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 29 29_Matmul_Mish_Mish.py                                       OK passed
+W0915 09:02:51.161000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:02:51.161000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 30 30_Gemm_GroupNorm_Hardtanh.py                                OK passed
+W0915 09:03:36.299000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:03:36.299000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 31 31_Conv2d_Min_Add_Multiply.py                                OK passed
+W0915 09:04:23.812000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:04:23.812000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 32 32_Conv2d_Scaling_Min.py                                     OK passed
+W0915 09:05:09.027000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:05:09.027000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 33 33_Gemm_Scale_BatchNorm.py                                   OK passed
+W0915 09:05:52.809000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:05:52.809000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 34 34_ConvTranspose3d_LayerNorm_GELU_Scaling.py                 OK passed
+W0915 09:06:37.927000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:06:37.927000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 35 35_Conv2d_Subtract_HardSwish_MaxPool_Mish.py                 OK passed
+W0915 09:07:21.034000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:07:21.034000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 36 36_ConvTranspose2d_Min_Sum_GELU_Add.py                       OK passed
+W0915 09:08:05.018000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:08:05.018000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 37 37_Matmul_Swish_Sum_GroupNorm.py                             OK passed
+W0915 09:08:50.900000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:08:50.900000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 38 38_ConvTranspose3d_AvgPool_Clamp_Softmax_Multiply.py         OK passed
+W0915 09:09:34.991000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:09:34.991000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 39 39_Gemm_Scale_BatchNorm.py                                   OK passed
+W0915 09:10:19.809000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:10:19.809000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 40 40_Matmul_Scaling_ResidualAdd.py                             OK passed
+W0915 09:11:04.086000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:11:04.086000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 41 41_Gemm_BatchNorm_GELU_ReLU.py                               OK passed
+W0915 09:11:50.849000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:11:50.849000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 42 42_ConvTranspose2d_GlobalAvgPool_BiasAdd_LogSumExp_Sum_Multi OK passed
+W0915 09:12:34.959000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:12:34.959000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 43 43_Conv3d_Max_LogSumExp_ReLU.py                              OK passed
+W0915 09:13:18.015000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:13:18.015000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 44 44_ConvTranspose2d_Multiply_GlobalAvgPool_GlobalAvgPool_Mean OK passed
+W0915 09:14:02.508000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:14:02.508000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 45 45_Gemm_Sigmoid_LogSumExp.py                                 OK passed
+W0915 09:14:52.619000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:14:52.619000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 46 46_Conv2d_Subtract_Tanh_Subtract_AvgPool.py                  OK passed
+W0915 09:15:36.789000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:15:36.789000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 47 47_Conv3d_Mish_Tanh.py                                       OK passed
+W0915 09:16:20.886000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:16:20.886000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 48 48_Conv3d_Scaling_Tanh_Multiply_Sigmoid.py                   OK passed
+W0915 09:17:05.386000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:17:05.386000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 49 49_ConvTranspose3d_Softmax_Sigmoid.py                        OK passed
+W0915 09:17:49.358000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:17:49.358000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 50 50_ConvTranspose3d_Scaling_AvgPool_BiasAdd_Scaling.py        OK passed
+W0915 09:18:33.746000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:18:33.746000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 51 51_Gemm_Subtract_GlobalAvgPool_LogSumExp_GELU_ResidualAdd.py OK passed
+W0915 09:19:18.463000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:19:18.463000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 52 52_Conv2d_Activation_BatchNorm.py                            OK passed
+W0915 09:20:03.335000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:20:03.335000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 53 53_Gemm_Scaling_Hardtanh_GELU.py                             OK passed
+W0915 09:20:59.037000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:20:59.037000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 54 54_Conv2d_Multiply_LeakyReLU_GELU.py                         OK passed
+W0915 09:22:03.237000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:22:03.237000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 55 55_Matmul_MaxPool_Sum_Scale.py                               OK passed
+W0915 09:22:58.748000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:22:58.748000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 56 56_Matmul_Sigmoid_Sum.py                                     OK passed
+W0915 09:23:43.347000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:23:43.347000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 57 57_Conv2d_ReLU_HardSwish.py                                  OK passed
+W0915 09:24:37.040000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:24:37.040000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 58 58_ConvTranspose3d_LogSumExp_HardSwish_Subtract_Clamp.py     OK passed
+W0915 09:25:31.942000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:25:31.942000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 59 59_Matmul_Swish_Scaling.py                                   OK passed
+W0915 09:26:15.905000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:26:15.905000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 60 60_ConvTranspose3d_Swish_GroupNorm_HardSwish.py              OK passed
+W0915 09:27:00.083000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:27:00.083000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 61 61_ConvTranspose3d_ReLU_GroupNorm.py                         OK passed
+W0915 09:27:45.001000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:27:45.001000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 62 62_Matmul_GroupNorm_LeakyReLU_Sum.py                         OK passed
+W0915 09:28:30.001000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:28:30.001000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 63 63_Gemm_ReLU_Divide.py                                       OK passed
+W0915 09:29:14.147000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:29:14.147000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 64 64_Gemm_LogSumExp_LeakyReLU_LeakyReLU_GELU_GELU.py           OK passed
+W0915 09:30:01.586000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:30:01.586000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 65 65_Conv2d_AvgPool_Sigmoid_Sum.py                             OK passed
+W0915 09:30:48.573000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:30:48.573000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 66 66_Matmul_Dropout_Softmax.py                                 FAIL failed [algorithm_error] correctness mismatch
+W0915 09:31:35.789000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:31:35.789000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 67 67_Conv2d_GELU_GlobalAvgPool.py                              OK passed
+W0915 09:32:22.023000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:32:22.023000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 68 68_Matmul_Min_Subtract.py                                    OK passed
+W0915 09:33:07.097000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:33:07.097000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 69 69_Conv2d_HardSwish_ReLU.py                                  OK passed
+W0915 09:33:51.921000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:33:51.921000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 70 70_Gemm_Sigmoid_Scaling_ResidualAdd.py                       OK passed
+W0915 09:34:35.891000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:34:35.891000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 71 71_Conv2d_Divide_LeakyReLU.py                                OK passed
+W0915 09:35:20.272000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:35:20.272000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 72 72_ConvTranspose3d_BatchNorm_AvgPool_AvgPool.py              OK passed
+W0915 09:36:04.129000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:36:04.129000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 73 73_Conv2d_BatchNorm_Scaling.py                               OK passed
+W0915 09:36:48.142000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:36:48.142000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 74 74_ConvTranspose3d_LeakyReLU_Multiply_LeakyReLU_Max.py       OK passed
+W0915 09:37:33.025000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:37:33.025000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 75 75_Gemm_GroupNorm_Min_BiasAdd.py                             OK passed
+W0915 09:38:17.585000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:38:17.585000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 76 76_Gemm_Add_ReLU.py                                          OK passed
+W0915 09:39:00.999000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:39:00.999000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 77 77_ConvTranspose3d_Scale_BatchNorm_GlobalAvgPool.py          OK passed
+W0915 09:39:44.885000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:39:44.885000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 78 78_ConvTranspose3d_Max_Max_Sum.py                            OK passed
+W0915 09:40:30.068000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:40:30.068000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 79 79_Conv3d_Multiply_InstanceNorm_Clamp_Multiply_Max.py        OK passed
+W0915 09:41:14.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:41:14.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 80 80_Gemm_Max_Subtract_GELU.py                                 OK passed
+W0915 09:41:59.935000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:41:59.935000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 81 81_Gemm_Swish_Divide_Clamp_Tanh_Clamp.py                     OK passed
+W0915 09:42:44.837000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:42:44.837000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 82 82_Conv2d_Tanh_Scaling_BiasAdd_Max.py                        OK passed
+W0915 09:43:30.453000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:43:30.453000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 83 83_Conv3d_GroupNorm_Min_Clamp_Dropout.py                     OK passed
+W0915 09:44:16.298000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:44:16.298000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 84 84_Gemm_BatchNorm_Scaling_Softmax.py                         OK passed
+W0915 09:45:00.875000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:45:00.875000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 85 85_Conv2d_GroupNorm_Scale_MaxPool_Clamp.py                   OK passed
+W0915 09:45:48.068000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:45:48.068000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 86 86_Matmul_Divide_GELU.py                                     OK passed
+W0915 09:46:33.419000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:46:33.419000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 87 87_Conv2d_Subtract_Subtract_Mish.py                          OK passed
+W0915 09:47:18.835000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:47:18.835000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 88 88_Gemm_GroupNorm_Swish_Multiply_Swish.py                    OK passed
+W0915 09:48:02.828000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:48:02.828000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 89 89_ConvTranspose3d_MaxPool_Softmax_Subtract_Swish_Max.py     OK passed
+W0915 09:48:48.527000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:48:48.527000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 90 90_Conv3d_LeakyReLU_Sum_Clamp_GELU.py                        OK passed
+W0915 09:49:33.446000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:49:33.446000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 91 91_ConvTranspose2d_Softmax_BiasAdd_Scaling_Sigmoid.py        OK passed
+W0915 09:50:18.163000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:50:18.163000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 92 92_Conv2d_GroupNorm_Tanh_HardSwish_ResidualAdd_LogSumExp.py  OK passed
+W0915 09:51:03.077000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:51:03.077000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 93 93_ConvTranspose2d_Add_Min_GELU_Multiply.py                  OK passed
+W0915 09:51:48.518000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:51:48.518000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 94 94_Gemm_BiasAdd_Hardtanh_Mish_GroupNorm.py                   OK passed
+W0915 09:52:32.989000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:52:32.989000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 95 95_Matmul_Add_Swish_Tanh_GELU_Hardtanh.py                    OK passed
+W0915 09:53:17.678000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:53:17.678000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 96 96_ConvTranspose3d_Multiply_Max_GlobalAvgPool_Clamp.py       OK passed
+W0915 09:54:03.451000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:54:03.451000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 97 97_Matmul_BatchNorm_BiasAdd_Divide_Swish.py                  OK passed
+W0915 09:54:48.829000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:54:48.829000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 98 98_Matmul_AvgPool_GELU_Scale_Max.py                          OK passed
+W0915 09:55:34.417000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:55:34.417000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L2 P 99 99_Matmul_GELU_Softmax.py                                    OK passed
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.24 GiB. GPU 0 has a total capacity of 15.22 GiB of which 860.00 MiB is free. Of the allocated memory 10.79 GiB is allocated by PyTorch, and 2.85 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 09:56:24.402000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:56:24.402000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 3.24 GiB. GPU 0 has a total capacity of 15.22 GiB of which 860.00 MiB is free. Of the allocated memory 10.79 GiB is allocated by PyTorch, and 2.85 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L2 P100 100_ConvTranspose3d_Clamp_Min_Divide.py                      FAIL failed [algorithm_error] correctness mismatch
+[batch] level 3: 50 problems
+W0915 09:57:33.868000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:57:33.868000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  1 1_MLP.py                                                     OK passed
+W0915 09:58:39.689000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:58:39.689000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+Failed to load custom CUDA kernel; Compiled but not able to run, count as runtime error. 
+Error: CUDA out of memory. Tried to allocate 2.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 432.00 MiB is free. Of the allocated memory 14.06 GiB is allocated by PyTorch, and 1.44 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  L3 P  2 2_ShallowWideMLP.py                                          FAIL failed [algorithm_error] correctness mismatch
+W0915 09:59:24.435000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 09:59:24.435000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  3 3_DeepNarrowMLP.py                                           OK passed
+W0915 10:00:09.214000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:00:09.214000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  4 4_LeNet5.py                                                  OK passed
+W0915 10:00:54.952000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:00:54.952000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  5 5_AlexNet.py                                                 OK passed
+W0915 10:01:41.312000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:01:41.312000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  6 6_GoogleNetInceptionModule.py                                OK passed
+W0915 10:02:26.609000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:02:26.609000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  7 7_GoogleNetInceptionV1.py                                    OK passed
+W0915 10:03:09.898000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:03:09.898000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  8 8_ResNetBasicBlock.py                                        OK passed
+W0915 10:03:55.829000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:03:55.829000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P  9 9_ResNet18.py                                                FAIL failed [algorithm_error] correctness mismatch
+W0915 10:04:41.059000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:04:41.059000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 10 10_ResNet101.py                                              FAIL failed [algorithm_error] correctness mismatch
+W0915 10:05:27.987000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:05:27.987000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 11 11_VGG16.py                                                  OK passed
+W0915 10:06:14.958000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:06:14.958000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 12 12_VGG19.py                                                  OK passed
+W0915 10:07:03.170000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:07:03.170000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 13 13_DenseNet121TransitionLayer.py                             OK passed
+W0915 10:07:47.573000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:07:47.573000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 14 14_DenseNet121DenseBlock.py                                  OK passed
+W0915 10:08:31.996000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:08:31.996000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 15 15_DenseNet121.py                                            FAIL failed [algorithm_error] correctness mismatch
+W0915 10:09:16.649000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:09:16.649000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 16 16_DenseNet201.py                                            FAIL failed [algorithm_error] correctness mismatch
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/KernelBench/src/kernelbench/eval.py", line 804, in run_and_check_correctness
+    if not torch.allclose(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.33 GiB is free. Of the allocated memory 9.16 GiB is allocated by PyTorch, and 3.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0915 10:10:00.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:10:00.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[Error] Exception happens during correctness check
+Error in launching kernel for ModelNew: CUDA out of memory. Tried to allocate 4.00 GiB. GPU 0 has a total capacity of 15.22 GiB of which 2.33 GiB is free. Of the allocated memory 9.16 GiB is allocated by PyTorch, and 3.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+[Full Traceback]:
+
+
+  L3 P 17 17_SqueezeNetFireModule.py                                   FAIL failed [algorithm_error] correctness mismatch
+W0915 10:10:44.863000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:10:44.863000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 18 18_SqueezeNet.py                                             OK passed
+W0915 10:11:30.381000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:11:30.381000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 19 19_MobileNetV1.py                                            OK passed
+W0915 10:12:15.581000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:12:15.581000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 20 20_MobileNetV2.py                                            FAIL failed [algorithm_error] correctness mismatch
+W0915 10:13:02.287000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:13:02.287000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 21 21_EfficientNetMBConv.py                                     OK passed
+W0915 10:13:46.104000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:13:46.104000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 22 22_EfficientNetB0.py                                         FAIL failed [algorithm_error] correctness mismatch
+W0915 10:14:29.849000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:14:29.849000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 23 23_EfficientNetB1.py                                         FAIL failed [algorithm_error] correctness mismatch
+W0915 10:15:14.229000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:15:14.229000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 24 24_EfficientNetB2.py                                         FAIL failed [algorithm_error] correctness mismatch
+W0915 10:16:01.313000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:16:01.313000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 25 25_ShuffleNetUnit.py                                         OK passed
+W0915 10:16:47.529000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:16:47.529000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 26 26_ShuffleNet.py                                             OK passed
+/opt/conda/lib/python3.10/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  warnings.warn(
+W0915 10:17:33.533000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:17:33.533000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 27 27_RegNet.py                                                 OK passed
+/opt/conda/lib/python3.10/site-packages/torch/nn/modules/transformer.py:392: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  warnings.warn(
+/opt/conda/lib/python3.10/site-packages/torch/nn/functional.py:5991: UserWarning: 1Torch was not compiled with memory efficient attention. (Triggered internally at /workspace/framework/mcPytorch/aten/src/ATen/native/transformers/cuda/sdp_utils.cpp:725.)
+  return _scaled_dot_product_attention(query, key, value, attn_mask, dropout_p, is_causal, scale = scale, enable_gqa = enable_gqa)
+W0915 10:18:22.391000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:18:22.391000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 28 28_VisionTransformer.py                                      OK passed
+/opt/conda/lib/python3.10/site-packages/torch/functional.py:554: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /workspace/framework/mcPytorch/aten/src/ATen/native/TensorShape.cpp:4343.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+W0915 10:19:10.475000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:19:10.475000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 29 29_SwinMLP.py                                                OK passed
+W0915 10:19:56.758000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:19:56.758000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 30 30_SwinTransformerV2.py                                      OK passed
+W0915 10:20:45.371000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:20:45.371000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 31 31_VisionAttention.py                                        FAIL failed [algorithm_error] correctness mismatch
+W0915 10:21:38.187000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:21:38.187000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 32 32_ConvolutionalVisionTransformer.py                         OK passed
+W0915 10:22:33.674000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:22:33.674000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 33 33_VanillaRNN.py                                             OK passed
+W0915 10:23:19.846000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:23:19.846000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 34 34_VanillaRNNHidden.py                                       OK passed
+W0915 10:24:06.355000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:24:06.355000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 35 35_LSTM.py                                                   OK passed
+W0915 10:24:51.062000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:24:51.062000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 36 36_LSTMHn.py                                                 OK passed
+W0915 10:25:36.480000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:25:36.480000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 37 37_LSTMCn.py                                                 OK passed
+W0915 10:26:25.658000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:26:25.658000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 38 38_LSTMBidirectional.py                                      OK passed
+W0915 10:27:09.051000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:27:09.051000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 39 39_GRU.py                                                    OK passed
+W0915 10:27:52.623000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:27:52.623000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 40 40_GRUHidden.py                                              OK passed
+W0915 10:28:36.351000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:28:36.351000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 41 41_GRUBidirectional.py                                       OK passed
+W0915 10:29:20.143000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:29:20.143000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 42 42_GRUBidirectionalHidden.py                                 OK passed
+W0915 10:30:04.880000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:30:04.880000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 43 43_MinGPTCausalAttention.py                                  OK passed
+W0915 10:30:49.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:30:49.699000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 44 44_MiniGPTBlock.py                                           OK passed
+W0915 10:31:33.162000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:31:33.162000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 45 45_UNetSoftmax.py                                            OK passed
+W0915 10:32:17.756000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:32:17.756000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 46 46_NetVladWithGhostClusters.py                               OK passed
+W0915 10:33:02.763000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:33:02.763000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 47 47_NetVladNoGhostClusters.py                                 OK passed
+W0915 10:33:49.665000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:33:49.665000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 48 48_Mamba2ReturnY.py                                          OK passed
+W0915 10:34:35.752000 10306 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 10:34:35.752000 10306 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+  L3 P 49 49_Mamba2ReturnFinalState.py                                 FAIL failed [algorithm_error] correctness mismatch
+  L3 P 50 50_ReLUSelfAttention.py                                      OK passed
+
+[summary] passed=182 failed=29 skipped=39 total=250
+[summary] written to /data/cuda-harness-migration/batch-results_summary.json
+WARNING: view size is not compatible with input tensor's size and stride (in mcPyTorch, for performance reasons, 4 dimensional tensor's memcpyH2D will generate a tensor with NHWC layout on device) thus .view() is replaced with .contiguous().view().   If needed, please use 'export PYTORCH_DEFAULT_NCHW=1' to align to PyTorch's official behavior, and the replacement may be removed.

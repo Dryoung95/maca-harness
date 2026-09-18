@@ -1,0 +1,18 @@
+{"name": "eager_matmul", "correct": true, "us_mean": 1591.4, "us_min": 1582.1}
+{"name": "mm_wmma6_64_64_16_1_1", "compiled": true, "correct": true, "compile_seconds": 23.1, "us_mean": 20333.8, "us_min": 20074.5, "us_std": 83.2, "speedup_vs_eager": 0.078}
+{"name": "mm_wmma6_64_64_16_1_2", "compiled": true, "correct": true, "compile_seconds": 23.3, "us_mean": 12446.9, "us_min": 12410.4, "us_std": 19.5, "speedup_vs_eager": 0.128}
+{"name": "mm_wmma6_64_64_16_1_4", "compiled": true, "correct": true, "compile_seconds": 23.6, "us_mean": 11250.1, "us_min": 11218.2, "us_std": 18.6, "speedup_vs_eager": 0.141}
+{"name": "mm_wmma6_64_64_16_2_1", "compiled": true, "correct": true, "compile_seconds": 23.1, "us_mean": 12585.9, "us_min": 12554.8, "us_std": 26.4, "speedup_vs_eager": 0.126}
+{"name": "mm_wmma6_64_64_16_2_2", "compiled": true, "correct": true, "compile_seconds": 23.5, "us_mean": 11242.1, "us_min": 11216.8, "us_std": 15.6, "speedup_vs_eager": 0.142}
+{"name": "mm_wmma6_64_64_16_2_4", "compiled": true, "correct": true, "compile_seconds": 23.7, "us_mean": 28216.3, "us_min": 25998.6, "us_std": 626.0, "speedup_vs_eager": 0.056}
+{"name": "mm_wmma6_64_64_16_4_1", "compiled": true, "correct": true, "compile_seconds": 23.3, "us_mean": 11491.1, "us_min": 11365.1, "us_std": 68.7, "speedup_vs_eager": 0.138}
+{"name": "mm_wmma6_64_64_16_4_2", "compiled": true, "correct": true, "compile_seconds": 23.7, "us_mean": 20288.2, "us_min": 15294.0, "us_std": 1752.4, "speedup_vs_eager": 0.078}
+{"name": "mm_wmma6_64_64_16_4_4", "compiled": true, "correct": true, "compile_seconds": 24.5, "us_mean": 50484.8, "us_min": 48235.0, "us_std": 488.0, "speedup_vs_eager": 0.032}
+{"name": "mm_wmma6_64_64_32_1_1", "compiled": true, "correct": true, "compile_seconds": 23.2, "us_mean": 13804.2, "us_min": 13798.1, "us_std": 10.6, "speedup_vs_eager": 0.115}
+{"name": "mm_wmma6_64_64_32_1_2", "compiled": true, "correct": true, "compile_seconds": 23.4, "us_mean": 12180.8, "us_min": 12169.5, "us_std": 15.9, "speedup_vs_eager": 0.131}
+{"name": "mm_wmma6_64_64_32_1_4", "compiled": true, "correct": true, "compile_seconds": 23.8, "us_mean": 11853.4, "us_min": 11839.0, "us_std": 13.0, "speedup_vs_eager": 0.134}
+{"name": "mm_wmma6_64_64_32_2_1", "compiled": true, "correct": true, "compile_seconds": 23.1, "us_mean": 11993.2, "us_min": 11985.9, "us_std": 9.0, "speedup_vs_eager": 0.133}
+{"name": "mm_wmma6_64_64_32_2_2", "compiled": true, "correct": true, "compile_seconds": 24.0, "us_mean": 11832.4, "us_min": 11804.9, "us_std": 41.6, "speedup_vs_eager": 0.134}
+{"name": "mm_wmma6_64_64_32_2_4", "compiled": true, "correct": true, "compile_seconds": 23.8, "us_mean": 12776.4, "us_min": 12421.1, "us_std": 153.6, "speedup_vs_eager": 0.125}
+{"name": "mm_wmma6_64_64_32_4_1", "compiled": true, "correct": true, "compile_seconds": 23.6, "us_mean": 11864.3, "us_min": 11857.2, "us_std": 9.8, "speedup_vs_eager": 0.134}
+{"name": "mm_wmma6_64_64_32_4_2", "compiled": true, "correct": true, "compile_seconds": 24.0, "us_mean": 12803.8, "us_min": 12431.6, "us_std": 138.6, "speedup_vs_eager": 0.124}

@@ -1,0 +1,4 @@
+{"name": "probe_full_kernel", "compiled": true, "correct": true, "compile_seconds": 49.7, "us_mean": 4048.4, "us_min": 3809.5, "us_std": 135.0, "label": "full_kernel", "eager_fp16_us": 891.6, "speedup_vs_eager_fp16": 0.22}
+{"name": "probe_no_compute", "compiled": true, "correct": true, "compile_seconds": 44.1, "us_mean": 105.3, "us_min": 102.7, "us_std": 8.5, "label": "no_compute", "eager_fp16_us": 891.6, "speedup_vs_eager_fp16": 8.467}
+{"name": "probe_no_load", "compiled": true, "correct": true, "compile_seconds": 43.3, "us_mean": 636.4, "us_min": 632.8, "us_std": 7.8, "label": "no_load", "eager_fp16_us": 891.6, "speedup_vs_eager_fp16": 1.401}
+{"name": "probe_no_store", "compiled": true, "correct": true, "compile_seconds": 43.5, "us_mean": 89.6, "us_min": 87.3, "us_std": 7.1, "label": "no_store", "eager_fp16_us": 891.6, "speedup_vs_eager_fp16": 9.95}

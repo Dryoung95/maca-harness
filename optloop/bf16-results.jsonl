@@ -1,0 +1,2 @@
+{"name": "bf_bf16_in_fp32_out", "compiled": true, "correct": true, "compile_seconds": 45.3, "us_mean": 4725.6, "us_min": 4673.5, "us_std": 54.4, "label": "bf16_in_fp32_out", "eager_bf16_us": 771.5, "speedup_vs_eager_bf16": 0.163}
+{"name": "bf_fp16_in_fp32_out", "compiled": true, "correct": true, "compile_seconds": 45.6, "us_mean": 4064.4, "us_min": 3817.0, "us_std": 124.7, "label": "fp16_in_fp32_out", "eager_bf16_us": 771.5, "speedup_vs_eager_bf16": 0.19}

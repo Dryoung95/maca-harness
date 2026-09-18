@@ -1,0 +1,11 @@
+{"name": "eager_matmul", "correct": true, "us_mean": 1604.0, "us_min": 1593.3}
+{"name": "mm_wmma4_128_256_16_4_4", "compiled": true, "correct": false, "compile_seconds": 25.8, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_128_256_32_4_4", "compiled": true, "correct": false, "compile_seconds": 26.0, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_128_256_32_4_2", "compiled": true, "correct": false, "compile_seconds": 24.8, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_128_256_64_8_2", "compiled": true, "correct": false, "compile_seconds": 24.9, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_256_128_32_4_4", "compiled": true, "correct": false, "compile_seconds": 26.6, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_256_256_32_8_4", "compiled": true, "correct": false, "compile_seconds": 27.5, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_128_256_16_4_2", "compiled": true, "correct": false, "compile_seconds": 24.3, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "mm_wmma4_256_128_64_4_4", "compiled": true, "correct": false, "compile_seconds": 24.8, "error": "RuntimeError: expected scalar type Float but found Half"}
+{"name": "eager_matmul", "correct": true, "us_mean": 1591.0, "us_min": 1581.1}
+{"name": "mm_wmma4_128_256_16_4_4", "compiled": true, "correct": false, "compile_seconds": 24.1, "error": "AcceleratorError: CUDA error: an illegal memory access was encountered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"}

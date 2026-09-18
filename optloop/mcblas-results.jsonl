@@ -1,0 +1,6 @@
+{"label": "eager fp32", "us_mean": 1599.7, "us_min": 1586.9, "err_ratio": "0.00e+00"}
+{"label": "eager fp16", "us_mean": 888.8, "us_min": 882.2, "err_ratio": "3.47e-04"}
+{"label": "mcblas fp32", "us_mean": 4746.8, "us_min": 4721.7, "err_ratio": "2.76e-04"}
+{"label": "mcblas fp16", "us_mean": 959.8, "us_min": 938.0, "err_ratio": "3.47e-04"}
+{"label": "mcblas bf16", "us_mean": 812.2, "us_min": 765.2, "err_ratio": "3.82e-03"}
+{"label": "mcblas fp16->fp32", "us_mean": 907.1, "us_min": 895.7, "err_ratio": "2.77e-05"}

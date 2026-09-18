@@ -1,0 +1,88 @@
+W0915 13:36:54.915000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:36:54.915000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[setup] n=4096 GPU=MetaX C500
+[baseline] eager: 1591.8 us
+[baseline] torch.compile: 1631.5 us
+[sweep] 346 wmma3 configs
+[  1/346] mm_wmma3_64_64_16_1_1            OK us= 9166.7 sp= 0.174 err=
+W0915 13:37:39.624000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:37:39.624000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  2/346] mm_wmma3_64_64_16_1_2            OK us=14955.5 sp= 0.106 err=
+W0915 13:38:24.134000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:38:24.134000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  3/346] mm_wmma3_64_64_16_1_4            OK us=21055.0 sp= 0.076 err=
+W0915 13:39:08.823000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:39:08.823000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  4/346] mm_wmma3_64_64_16_2_1            OK us=14804.0 sp= 0.108 err=
+W0915 13:39:54.584000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:39:54.584000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  5/346] mm_wmma3_64_64_16_2_2            OK us=21211.2 sp= 0.075 err=
+W0915 13:40:40.407000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:40:40.407000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  6/346] mm_wmma3_64_64_16_2_4            OK us=22125.6 sp= 0.072 err=
+W0915 13:41:25.062000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:41:25.062000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  7/346] mm_wmma3_64_64_16_4_1            OK us=21257.0 sp= 0.075 err=
+W0915 13:42:10.065000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:42:10.065000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  8/346] mm_wmma3_64_64_16_4_2            OK us=22233.5 sp= 0.072 err=
+W0915 13:42:56.485000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:42:56.485000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[  9/346] mm_wmma3_64_64_16_4_4            OK us=15720.3 sp= 0.101 err=
+W0915 13:43:42.650000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:43:42.650000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 10/346] mm_wmma3_64_64_32_1_1            OK us= 6698.0 sp= 0.238 err=
+W0915 13:44:30.894000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:44:30.894000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 11/346] mm_wmma3_64_64_32_1_2            OK us= 9172.5 sp= 0.174 err=
+W0915 13:45:15.465000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:45:15.465000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 12/346] mm_wmma3_64_64_32_1_4            OK us= 9720.7 sp= 0.164 err=
+W0915 13:46:02.186000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:46:02.186000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 13/346] mm_wmma3_64_64_32_2_1            OK us= 9178.4 sp= 0.173 err=
+W0915 13:46:48.842000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:46:48.842000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 14/346] mm_wmma3_64_64_32_2_2            OK us= 9791.7 sp= 0.163 err=
+W0915 13:47:34.339000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:47:34.339000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 15/346] mm_wmma3_64_64_32_2_4            OK us= 6386.8 sp= 0.249 err=
+W0915 13:48:18.975000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:48:18.975000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 16/346] mm_wmma3_64_64_32_4_1            OK us= 9666.9 sp= 0.165 err=
+W0915 13:49:03.440000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:49:03.440000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 17/346] mm_wmma3_64_64_32_4_2            OK us= 6572.1 sp= 0.242 err=
+W0915 13:49:48.162000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:49:48.162000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[ 18/346] mm_wmma3_64_64_32_4_4            OK us= 7873.6 sp= 0.202 err=
+W0915 13:50:33.924000 254776 site-packages/torch/utils/cpp_extension.py:2527] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+W0915 13:50:33.924000 254776 site-packages/torch/utils/cpp_extension.py:2527] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
+[13:51:17.218][MXC][E]xnack(0x8): kernel causes atu address translation error
+[13:51:17.218][MCR][E]mx_device.cpp            :4646: traping pipeID=1,queueID=0!
+[13:51:17.218][MCR][E]mx_device.cpp            :4647: traping virtualDevice=0x7f2508000c70!
+[13:51:17.219][MCR][E]mx_device.cpp            :4446: Xnack(0x8) exception happened in the shader, the mcruntime api will be disabled
+[13:51:17.219][MCR][E]mx_device.cpp            :4573: Node ID is 2
+[13:51:17.219][MCR][E]mx_device.cpp            :4586: debug info: 0xd1,0x00,0x20,0x30,0x18,0x00,0x00,0x00,0xe0,0x23,0x00,0x00,0x40,0x00,0x00,0x00,
+[13:51:17.219][MCR][E]mx_device.cpp            :9838: trap:precise positioning.
+[13:51:17.219][MCR][E]mx_device.cpp            :9843: traping: kernelName: _Z15mm_wmma3_kernelPKfS0_Pfi ,commandIndex: 5535 , trapType: Xnack Error/ATU Fault(0x8)
+[13:51:18.217][MCR][E]mx_signal.cpp            :561 : Failed signal [0x7f25b960fbc0] wait
+[13:51:18.217][MCR][E]mx_signal.cpp            :561 : Failed signal [0x7f25b960fbc0] wait
+[13:51:18.217][MCR][E]mx_command.cpp           :125 : command 0x5570c0b773b0 status invalid! Current status : 0,try to set status : -1
+[13:51:18.217][MCR][E]mc_runtime_api.cpp       :215 : 254776: [7f27f440c740] mcGetDevice: Returned mcErrorIllegalAddress
+[ 19/346] mm_wmma3_64_64_48_1_1            X us=      - sp=     - err=AcceleratorError: CUDA error: an illegal memory ac
+[13:51:18.217][MCR][E]mc_runtime_api.cpp       :877 : 254776: [7f27f440c740] mcFree: Returned mcErrorIllegalAddress
+Traceback (most recent call last):
+  File "/data/cuda-harness-migration/optloop/longloop.py", line 141, in <module>
+    main()
+  File "/data/cuda-harness-migration/optloop/longloop.py", line 133, in main
+    torch.cuda.empty_cache()
+  File "/opt/conda/lib/python3.10/site-packages/torch/cuda/memory.py", line 224, in empty_cache
+    torch._C._cuda_emptyCache()
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[13:51:26.506][MCR][E]mc_runtime_api.cpp       :2142: 254776: [7f27f440c740] mcModuleUnload: Returned mcErrorIllegalAddress
+[13:51:26.508][MCR][E]mx_signal.cpp            :160 : shouldn't destroy a profiling signal 0x7f2508005af0 that is still busy!

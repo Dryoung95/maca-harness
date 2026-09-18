@@ -1,0 +1,25 @@
+{
+  "compiled": true,
+  "correctness": true,
+  "metadata": {
+    "hardware": "MetaX C500",
+    "device": "0",
+    "correctness_trials": "(5 / 5)"
+  },
+  "runtime": 0.951,
+  "runtime_stats": {
+    "mean": 0.951,
+    "std": 0.0251,
+    "min": 0.923,
+    "max": 1.02,
+    "num_trials": 20
+  },
+  "ref_runtime": 1.61,
+  "ref_runtime_stats": {
+    "mean": 1.61,
+    "std": 0.0211,
+    "min": 1.58,
+    "max": 1.64,
+    "num_trials": 20
+  }
+}

@@ -35,3 +35,9 @@ torch.cuda.synchronize()
 print("library store_matrix_sync output (16x16):")
 print(out.cpu().numpy().astype(int))
 print("nonzero count:", (out != 0).sum().item())
+print("all-zero rows:", [i for i in range(16) if bool((out[i] == 0).all())])
+zero_pos = (out == 0).nonzero()
+print("zero element positions:", zero_pos.cpu().numpy().tolist())
+if zero_pos.numel():
+    r, c = zero_pos[0]
+    print("expected value at that position:", int(r) * 100 + int(c))

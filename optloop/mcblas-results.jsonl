@@ -4,3 +4,9 @@
 {"label": "mcblas fp16", "us_mean": 959.8, "us_min": 938.0, "err_ratio": "3.47e-04"}
 {"label": "mcblas bf16", "us_mean": 812.2, "us_min": 765.2, "err_ratio": "3.82e-03"}
 {"label": "mcblas fp16->fp32", "us_mean": 907.1, "us_min": 895.7, "err_ratio": "2.77e-05"}
+{"label": "eager fp32", "us_mean": 1589.7, "us_min": 1579.5, "err_ratio": "0.00e+00"}
+{"label": "eager fp16", "us_mean": 717.6, "us_min": 709.9, "err_ratio": "3.47e-04"}
+{"label": "mcblas fp32", "us_mean": 4738.4, "us_min": 4716.8, "err_ratio": "2.76e-04"}
+{"label": "mcblas fp16", "us_mean": 786.3, "us_min": 757.5, "err_ratio": "3.47e-04"}
+{"label": "mcblas bf16", "us_mean": 715.8, "us_min": 709.6, "err_ratio": "3.82e-03"}
+{"label": "mcblas fp16->fp32", "us_mean": 731.0, "us_min": 722.2, "err_ratio": "2.77e-05"}

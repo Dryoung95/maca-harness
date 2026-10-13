@@ -170,7 +170,7 @@ def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_r
         if elems > 0 and not check_gpu_memory_feasible(elems):
             result["status"] = "skipped"
             result["failure_class"] = "invalid_infrastructure"
-            result["error"] = f"static input too large for C500 16.3GB: {elems} elems ({elems*4/1e9:.2f} GB)"
+            result["error"] = f"static input too large for device: {elems} elems ({elems*4/1e9:.2f} GB)"
             result["wall_seconds"] = time.time() - t0
             return result
 
@@ -255,8 +255,11 @@ cuda_source = """
 #include <cuda.h>
 #include <cuda_runtime.h>
 
-__global__ void identity_kernel(const float* in, float* out, int n) {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+// numel() is int64; some problems have >= 2^31 output elements (e.g. L1 P87
+// pointwise conv, 16x128x1024x1024), which overflows int32 and yields an
+// invalid grid configuration. Index with int64_t throughout.
+__global__ void identity_kernel(const float* in, float* out, int64_t n) {
+    int64_t idx = (int64_t)blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < n) {
         out[idx] = in[idx] + 0.0f;
     }
@@ -264,10 +267,10 @@ __global__ void identity_kernel(const float* in, float* out, int n) {
 
 torch::Tensor identity_op(torch::Tensor x) {
     auto out = torch::empty_like(x);
-    int n = x.numel();
+    int64_t n = x.numel();
     int threads = 256;
-    int blocks = (n + threads - 1) / threads;
-    identity_kernel<<<blocks, threads>>>(
+    int64_t blocks = (n + threads - 1) / threads;
+    identity_kernel<<<(unsigned long long)blocks, threads>>>(
         x.data_ptr<float>(), out.data_ptr<float>(), n
     );
     return out;
@@ -294,7 +297,21 @@ def _wrap_model_with_identity(ref_code: str) -> str:
     """
     # The ref code already defines Model, get_inputs, get_init_inputs.
     # We append a ModelNew that wraps it.
+    # The identity kernel launches ceil(n/threads) blocks; a 0-dim (scalar) or
+    # empty output has numel()==0 and would launch zero blocks, which MACA
+    # rejects with NotImplementedError. Identity over such a tensor is a no-op,
+    # so return it directly. This covers the loss-function family (L1 P94/P95/
+    # P96/P98) whose outputs are 0-dim scalars.
+    # The kernel also reads/writes via float* data pointers, so index-typed
+    # outputs (argmax/argmin, L1 P51/P52, int64) must bypass it.
     wrapper = '''
+
+def _identity_or_passthrough(t):
+    if (isinstance(t, torch.Tensor)
+            and t.numel() > 0
+            and t.dtype == torch.float32):
+        return _identity_module.identity_op(t)
+    return t
 
 class ModelNew(nn.Module):
     def __init__(self, *args, **kwargs):
@@ -303,9 +320,9 @@ class ModelNew(nn.Module):
     def forward(self, *x):
         out = self.model(*x)
         if isinstance(out, torch.Tensor):
-            return _identity_module.identity_op(out)
+            return _identity_or_passthrough(out)
         if isinstance(out, (list, tuple)):
-            return [_identity_module.identity_op(t) if isinstance(t, torch.Tensor) else t for t in out]
+            return [_identity_or_passthrough(t) for t in out]
         return out
 '''
     return ref_code + wrapper
@@ -317,11 +334,19 @@ def main():
     ap.add_argument("--problem-ids", type=str, default="",
                     help="comma list of ids, empty = all")
     ap.add_argument("--out", type=str,
-                    default="/data/cuda-harness-migration/batch-results.jsonl")
+                    default=str(Path(__file__).resolve().parent / "batch-results.jsonl"))
     ap.add_argument("--build-root", type=str,
-                    default="/data/cuda-harness-migration/batch_build")
+                    default=str(Path(__file__).resolve().parent / "batch_build"))
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--limit", type=int, default=0, help="limit problems per level (0=all)")
+    ap.add_argument(
+        "--rerun-nonpassed",
+        type=str,
+        default="",
+        metavar="RESULTS_JSONL",
+        help="read a prior results file and re-run only problems whose status "
+             "was not 'passed' (e.g. after a memory upgrade or a harness fix)",
+    )
     args = ap.parse_args()
 
     out_path = Path(args.out)
@@ -329,6 +354,22 @@ def main():
 
     levels = [int(l) for l in args.levels.split(",")]
     problem_ids = [int(p) for p in args.problem_ids.split(",")] if args.problem_ids else None
+
+    # Restrict to previously non-passing problems. This is the path used when the
+    # execution environment has changed (larger-capacity device, harness fix):
+    # a status that was invalid_infrastructure before may now pass.
+    pending = None
+    if args.rerun_nonpassed:
+        prior = {}
+        with open(args.rerun_nonpassed) as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    r = json.loads(line)
+                    prior[(r["level"], r["problem_id"])] = r["status"]
+        pending = {k for k, v in prior.items() if v != "passed"}
+        print(f"[batch] rerun-nonpassed: {len(pending)} of {len(prior)} problems "
+              f"were not 'passed' in {args.rerun_nonpassed}")
 
     results = []
     device = torch.device("cuda:0")
@@ -340,6 +381,8 @@ def main():
         ids = problem_ids or ds.get_problem_ids()
         if args.limit:
             ids = ids[: args.limit]
+        if pending is not None:
+            ids = [i for i in ids if (level, i) in pending]
         print(f"[batch] level {level}: {len(ids)} problems")
 
         for pid in ids:

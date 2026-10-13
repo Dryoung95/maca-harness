@@ -5,6 +5,7 @@ optloop/*build/
 optloop/mt3/
 optloop/diagbuild/
 batch_build/
+rerun_build/
 
 # Extension binaries & object files
 *.so

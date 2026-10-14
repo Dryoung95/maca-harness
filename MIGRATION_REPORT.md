@@ -8,6 +8,7 @@
 | 第一阶段（初跑） | 16.3 GB | 1-trial | 182 / 250（72.8%） |
 | 第一阶段补跑 | 68.3 GB（64 GB 规格） | 1-trial | 240 / 250（96.0%） |
 | **官方门槛建对齐** | 68.3 GB | **官方 5-trial + eval 模式** | **249 / 250（99.6%）** |
+| **Level 4 覆盖** | 68.3 GB | 同上 | **20 / 20（100%）** |
 
 ---
 
@@ -185,8 +186,10 @@ L2 P66；L3 P9, P10, P15, P16, P20, P22, P23, P24, P49
 | `run_batch.py` | 批量正确性执行器（本次新增） |
 | `batch-results.jsonl` | 250 题逐题结果（增量写入，含 metadata，16.3 GB 配置） |
 | `batch-results_summary.json` | 汇总计数（16.3 GB 配置） |
-| `batch-results-64gb.jsonl` | 64 GB 补跑后的合并结果（当前基线，250 题） |
+| `batch-results-64gb.jsonl` | 64 GB 补跑后的合并结果（1-trial 门槛，250 题） |
 | `batch-results-64gb_summary.json` | 汇总计数（64 GB 配置） |
+| `align-final.jsonl` | 官方门槛建（5-trial + eval 模式）最终结果：249/250，当前基线 |
+| `l4-results.jsonl` | L4（HuggingFace 推理）20 道在官方门槛建下的结果：20/20 |
 | `rerun-64gb.jsonl` / `rerun-64gb.log` | 68 道未通过题在 64 GB 上的重跑结果与日志 |
 | `batch-run.log` | 批量执行完整日志（16.3 GB 配置） |
 | `batch_build/`、`rerun_build/` | 每题的编译缓存（含 .so / .o / build.ninja） |
@@ -221,7 +224,7 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 1. **第二阶段启动**：性能调优。249 道 passed 题已有 build cache，可直接计时；前期数据显示手写 kernel 相对 eager 的加速比还有很大空间（P1 tiled matmul 仅 0.05x）
 2. ~~**修 pydra 依赖**~~ ✅ 已通过 `shims/pydra.py` + `shims/modal.py` 解决，官方 CLI 端到端可用（见 §8.2）
 3. ~~**数值非确定性处理**~~ ✅ 已定位根因并按官方口径处理（见 §8）：9 道为 train 模式比较假象，1 道（P76）为 conv 算法非确定性
-4. **L4 覆盖**：下载 HF 模型后用同一流程跑 20 道推理题（`transformers`/`datasets` 已装，缺模型权重和网络）
+4. ~~**L4 覆盖**：下载 HF 模型后用同一流程跑 20 道推理题~~ ✅ 20/20 通过，权重经 `HF_ENDPOINT` 镜像下载（见 §8.5）
 5. ~~**大显存硬件**：57 道 OOM 题补齐~~ ✅ 已在 64 GB 规格上完成（见 §7）
 
 ---
@@ -327,3 +330,11 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 - 全部 250 题在官方门槛建下编译并运行，工具链经受住了完整检验
 
 当前基线数据集为 `align-final.jsonl`。
+
+### 8.5 Level 4 覆盖（2026-10-14）
+
+L4 的 20 道 HuggingFace 推理题在同一官方门槛建下跑完：**20 / 20 全部通过，每道 5/5 trials**（`l4-results.jsonl`，总墙钟 20 分 44 秒，平均 62 秒/题）。
+
+覆盖 7 个预训练模型：`gpt2`、`EleutherAI/gpt-neo-2.7B`、`facebook/opt-1.3b`、`facebook/bart-large`、`google/bigbird-roberta-base`、`google/electra-small-discriminator`、`google/reformer-enwik8`，batch size 1–1024、序列长度 32–4095。
+
+**模型获取**：环境里 `HF_ENDPOINT=https://hf-mirror.com` 已配置好，镜像站可达（唯一坑：hub API 需要带 `User-Agent` 头，否则 403）。模型权重缓存于 `HF_HOME=/data/huggingface_home`。

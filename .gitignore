@@ -40,3 +40,7 @@ optloop/sweep_bf16_out.log
 .env
 *.token
 optloop/*build*/
+
+# Level 4 run artifacts
+l4_build/
+l4-run.log

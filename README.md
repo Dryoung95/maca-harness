@@ -14,10 +14,11 @@ Two hardware configurations were used:
 |---|---|---|
 | Phase I | 16.3 GB | 182 / 250 passed (72.8%) |
 | Phase I-R (re-run) | **68.3 GB (64 GB SKU)** | **239 / 250 passed (95.6%)** |
+| Gate alignment | 68.3 GB | **249 / 250 at the official gate + 20 / 20 at Level 4** |
 
 The 64 GB re-run was performed with `--rerun-nonpassed`, which re-executes only the problems that did not pass on the 16.3 GB configuration.
 
-KernelBench comprises 250 problems spanning three levels of increasing complexity — 100 foundational operators (Level 1), 100 fused operators (Level 2), and 50 complete models (Level 3). For each problem, the harness supplies a reference implementation; the evaluation engine then generates randomized inputs, executes both the reference and the candidate implementation, and adjudicates numerical correctness via `allclose` while measuring wall-clock latency through `cuda_event` timing.
+KernelBench comprises 250 problems spanning three levels of increasing complexity — 100 foundational operators (Level 1), 100 fused operators (Level 2), and 50 complete models (Level 3) — plus 20 HuggingFace inference problems (Level 4). For each problem, the harness supplies a reference implementation; the evaluation engine then generates randomized inputs, executes both the reference and the candidate implementation, and adjudicates numerical correctness via `allclose` while measuring wall-clock latency through `cuda_event` timing.
 
 The objective of this work is to bring this entire evaluation pipeline into operation on non-NVIDIA hardware, thereby establishing a quantitative basis for assessing CUDA-code compatibility and performance portability on the MACA platform.
 
@@ -113,7 +114,11 @@ The sole remaining failure is **L1 P76** (dilated, strided 1-D convolution). A r
 - **Conv algorithm non-determinism (1 problem, L1 P76).** Non-reproducible run-to-run algorithm selection on this backend, confirmed by the fact that `deterministic=True` collapses the divergence to exactly 0.
 - **Harness wrapper defects (5 problems, resolved).** The passthrough wrapper assumed a contiguous fp32, small, non-scalar output. All five now pass; see §6.1.
 
-Verified technical coverage across passing problems includes: shared memory, `__syncthreads`, `dim3` grids, `<<<>>>` launches; the matmul family (tiled, batched, transposed, diagonal, 3D, 4D); the convolution family (standard, transposed, depthwise, pointwise; 1D/2D/3D; strided, dilated, padded); cumulative and masked reductions; pooling; normalization (BN/IN/GN/RMSNorm/LayerNorm); activation functions; loss functions; attention; and complete models at Level 3 (MLP, AlexNet, ResNet18/101, DenseNet121/201, MobileNetV2, EfficientNet, SqueezeNet, ViT, Mamba2).
+Verified technical coverage across passing problems includes: shared memory, `__syncthreads`, `dim3` grids, `<<<>>>` launches; the matmul family (tiled, batched, transposed, diagonal, 3D, 4D); the convolution family (standard, transposed, depthwise, pointwise; 1D/2D/3D; strided, dilated, padded); cumulative and masked reductions; pooling; normalization (BN/IN/GN/RMSNorm/LayerNorm); activation functions; loss functions; attention; complete models at Level 3 (MLP, AlexNet, ResNet18/101, DenseNet121/201, MobileNetV2, EfficientNet, SqueezeNet, ViT, Mamba2); and pretrained Transformer models at Level 4 (GPT-2, GPT-Neo-2.7B, OPT-1.3B, BART-large, BigBird, ELECTRA, Reformer).
+
+#### 3.1.3 Level 4 — HuggingFace inference ✅
+
+All 20 Level 4 problems pass at the official gate (`l4-results.jsonl`): **20 / 20, every problem 5/5 trials**. Six pretrained models are exercised — `gpt2`, `EleutherAI/gpt-neo-2.7B`, `facebook/opt-1.3b`, `facebook/bart-large`, `google/bigbird-roberta-base`, `google/electra-small-discriminator`, `google/reformer-enwik8` — across batch sizes 1–1024 and sequence lengths 32–4095. Weights were fetched through the `HF_ENDPOINT` mirror already configured in the environment (`hf-mirror.com`; the hub API needs a `User-Agent` header). Total wall-clock 20 min 44 s, mean 62 s/problem.
 
 ### 3.2 Phase II — Performance Optimization 🔄
 
@@ -138,7 +143,8 @@ A precision study confirms this result is not an artifact of lenient tolerance: 
 |---|---|
 | `KernelBench/` | Upstream source, unmodified |
 | `run_batch.py` | Batch correctness executor |
-| `align-final.jsonl` / `_summary.json` | **Final results at the official 5-trial gate, eval mode — the current baseline (249/250)** |
+| `align-final.jsonl` / `_summary.json` | **Final results at the official 5-trial gate, eval mode — the current L1–3 baseline (249/250)** |
+| `l4-results.jsonl` / `_summary.json` | Level 4 results at the same gate — 20/20 |
 | `align-full.jsonl` / `.log` | Full 250-problem run at the official 5-trial gate (train-mode semantics) |
 | `align-evalmode.jsonl` | Re-run of the 12 train-mode failures under eval mode |
 | `batch-results-64gb.jsonl` | Earlier per-problem results at the 1-trial gate (superseded) |
@@ -169,6 +175,10 @@ python3 run_batch.py --levels 1,2,3 \
 python3 run_batch.py --levels 1,2,3 \
   --rerun-nonpassed align-final.jsonl \
   --out rerun.jsonl --build-root rerun_build
+
+# 3b. Level 4 (requires HuggingFace weights; HF_ENDPOINT is set in env.sh)
+python3 run_batch.py --levels 4 \
+  --out l4-results.jsonl --build-root l4_build
 
 # 4. Official CLI (same evaluation, upstream entry point)
 python3 KernelBench/scripts/run_and_check.py ref_origin=kernelbench \
@@ -221,7 +231,7 @@ Additionally, **mctlass** (the MACA counterpart of CUTLASS) was evaluated and fo
 - [x] Re-run the memory-constrained problems on larger-capacity hardware — done on the 64 GB SKU (§3.1.1); all 57 now pass
 - [x] Correct the harness wrapper for zero-dimensional, integer, non-contiguous, and ≥2³¹-element outputs (§6.1)
 - [x] Align with the official evaluation gate — 5-trial correctness, fp32 1e-4 tolerance, eval mode; **249/250** (§3.1.2)
-- [ ] Cover Level 4 (20 HuggingFace inference problems), pending model weight download (transformers/datasets are installed; the models themselves need network access)
+- [x] Cover Level 4 (20 HuggingFace inference problems) — 20/20 pass at the official gate, weights fetched via the `HF_ENDPOINT` mirror (§3.1.3)
 
 ---
 

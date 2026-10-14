@@ -71,25 +71,25 @@ Pass distribution by level: L1 47/100, L2 97/100, L3 38/50.
 
 #### 3.1.1 Re-run on the 64 GB SKU ✅
 
-The 64 non-passing problems were re-executed on a 68.3 GB (64 GB SKU) C500. Result: **239 / 250 passed (95.6%)**.
+The 68 non-passing problems were re-executed on a 68.3 GB (64 GB SKU) C500. Result: **240 / 250 passed (96.0%)**.
 
 | Outcome (re-run) | Count |
 |---|---|
-| **Passed** | **54 of 68** |
-| Failed — numerical non-determinism | 11 |
+| **Passed** | **55 of 68** |
+| Failed — numerical non-determinism | 10 |
 | Failed — toolchain / porting defect | **0** |
 
 Transitions observed: 35 skipped→passed, 19 failed→passed, 10 failed→failed, 4 skipped→failed.
 
-The 4 newly-exposed failures were investigated individually and all traced to the test harness, not the platform (see §6.1). After fixing them, only the 11 numerical non-determinism problems remain — and one of those, L1 P76, is newly surfaced: a 64-channel dilated 1-D convolution (2.15 GB input) that was previously skipped as OOM. Its eager-mode double-run mismatch (max diff 6.47) places it in the same class as the other 10.
+The 4 newly-exposed failures were problems that had never actually been executed (previously skipped as OOM). All were traced to the test harness, not the platform (see §6.1). A fifth wrapper defect — a non-contiguous output — was found in L3 P49, previously misclassified as numerical non-determinism; the reference is in fact bit-identical across runs, and the 5e13 "mismatch" came from the wrapper misreading strided memory. After these fixes only 10 problems remain, all verified non-deterministic in eager mode themselves (see §3.1.2).
 
-Final pass distribution: **L1 99/100, L2 99/100, L3 41/50**.
+Final pass distribution: **L1 99/100, L2 99/100, L3 42/50**.
 
 **Principal finding: zero occurrences of `backend_error` (toolchain compilation failure) and zero occurrences of genuine `algorithm_error` (correctness defect introduced by the port).** Every non-passing problem is attributable to one of the following, none of which constitutes a porting defect:
 
 - **Device memory capacity (57 problems, resolved on the 64 GB SKU).** The 16.3 GB configuration could not run these; the 64 GB SKU now passes all of them. On the smaller device they are classified as `invalid_infrastructure`.
-- **Numerical non-determinism (11 problems).** Reduction ordering in metax eager-mode convolutions and batch normalization yields results that diverge from themselves across runs beyond the fp32 tolerance of 1e-4. This is a backend numerical characteristic, not a porting defect.
-- **Harness wrapper defects (4 problems).** The passthrough wrapper in the batch executor assumed an fp32, small, non-scalar output. All four now pass; see §6.1.
+- **Numerical non-determinism (10 problems, verified by eager-vs-eager double-run).** Reduction ordering in metax eager-mode convolutions and batch normalization yields results that diverge from themselves across runs beyond the fp32 tolerance of 1e-4. This is a backend numerical characteristic, not a porting defect.
+- **Harness wrapper defects (5 problems).** The passthrough wrapper in the batch executor assumed a contiguous fp32, small, non-scalar output. All five now pass; see §6.1.
 
 Verified technical coverage across passing problems includes: shared memory, `__syncthreads`, `dim3` grids, `<<<>>>` launches; the matmul family (tiled, batched, transposed, diagonal, 3D, 4D); the convolution family (standard, transposed, depthwise, pointwise; 1D/2D/3D; strided, dilated, padded); cumulative and masked reductions; pooling; normalization (BN/IN/GN/RMSNorm/LayerNorm); activation functions; loss functions; attention; and complete models at Level 3 (MLP, AlexNet, ResNet18/101, DenseNet121/201, MobileNetV2, EfficientNet, SqueezeNet, ViT, Mamba2).
 
@@ -163,15 +163,16 @@ The following issues were isolated and reproduced during this work. They are rep
 
 ### 6.1 Harness wrapper defects (fixed)
 
-The batch executor wraps every problem's reference in a passthrough `ModelNew` that applies an elementwise identity CUDA kernel to the output. That wrapper made three assumptions about the output tensor which KernelBench problems do not always satisfy. All four affected problems now pass, and no KernelBench source was modified — the fixes are confined to `run_batch.py`.
+The batch executor wraps every problem's reference in a passthrough `ModelNew` that applies an elementwise identity CUDA kernel to the output. That wrapper assumed the output tensor is contiguous fp32, of modest size, and not a scalar — assumptions KernelBench problems do not always satisfy. All five affected problems now pass, and no KernelBench source was modified — the fixes are confined to `run_batch.py`.
 
 | Problem | Output | Defect | Fix |
 |---|---|---|---|
 | L1 P94–P96, P98 (loss functions), originally P95 | 0-dim scalar (`numel() == 0`) | Zero-block kernel launch rejected by MACA (`NotImplementedError`) | Return the tensor directly; the identity is a no-op |
 | L1 P51, P52 (argmax / argmin) | `int64` index tensor | Kernel casts data pointers to `float*`, misreading every 8-byte index as two 4-byte floats | Skip the kernel unless the output is `float32` |
 | L1 P87 (pointwise 2-D conv) | 2³¹ elements | `numel()` truncated into an `int` grid dim overflows to negative → `invalid configuration argument` | Use `int64_t` for the element count and grid size |
+| L3 P49 (Mamba2) | non-contiguous strided slice (`new_states[:, -1]`) | Kernel reads `numel()` floats from `data_ptr()`, interpreting strided storage as flat and overrunning its end — a 5e13 "mismatch" | Force `.contiguous()` before reading |
 
-None of the three is a platform defect. All were invisible until the 64 GB SKU made the problems runnable.
+None of these is a platform defect. The first three were invisible until the 64 GB SKU made the problems runnable; the fourth was originally misclassified as numerical non-determinism.
 
 ### 6.2 Toolchain defects (documented, not corrected)
 

@@ -1,6 +1,6 @@
 {
-  "passed": 239,
-  "failed": 11,
+  "passed": 240,
+  "failed": 10,
   "skipped": 0,
   "total": 250,
   "gpu": "MetaX C500",
@@ -8,7 +8,7 @@
   "by_level": {
     "L1": "99/100",
     "L2": "99/100",
-    "L3": "41/50"
+    "L3": "42/50"
   },
-  "note": "64GB C500 re-run; all remaining failures are numerical non-determinism"
+  "note": "64GB C500 re-run; all remaining failures verified eager-vs-eager nondeterministic"
 }

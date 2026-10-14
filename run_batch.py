@@ -144,7 +144,7 @@ def build_modelnew_from_ref(ref_code: str) -> str:
     return None
 
 
-def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_root: str = None) -> dict:
+def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_root: str = None, num_correct_trials: int = 5, num_perf_trials: int = 0) -> dict:
     """Run correctness evaluation for one problem. Returns result dict."""
     t0 = time.time()
     result = {
@@ -192,9 +192,9 @@ def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_r
             original_model_src=ref_code,
             custom_model_src=model_new_code,
             seed_num=42,
-            num_correct_trials=1,
-            num_perf_trials=0,
-            measure_performance=False,
+            num_correct_trials=num_correct_trials,
+            num_perf_trials=num_perf_trials,
+            measure_performance=num_perf_trials > 0,
             verbose=verbose,
             build_dir=build_dir,
             device=device,
@@ -266,6 +266,14 @@ __global__ void identity_kernel(const float* in, float* out, int64_t n) {
 }
 
 torch::Tensor identity_op(torch::Tensor x) {
+    // Some refs return non-contiguous outputs (e.g. L3 P49 returns
+    // new_states[:, -1], a strided slice). Reading numel() floats from
+    // data_ptr() on such a tensor misinterprets the underlying storage and
+    // overruns its end, producing garbage of order 1e20. Force contiguous
+    // so the byte-layout assumption above holds.
+    if (!x.is_contiguous()) {
+        x = x.contiguous();
+    }
     auto out = torch::empty_like(x);
     int64_t n = x.numel();
     int threads = 256;
@@ -347,6 +355,19 @@ def main():
         help="read a prior results file and re-run only problems whose status "
              "was not 'passed' (e.g. after a memory upgrade or a harness fix)",
     )
+    ap.add_argument(
+        "--num-correct-trials",
+        type=int,
+        default=5,
+        help="correctness trials; the official CLI default is 5 and a problem "
+             "passes only if ALL trials pass (kernelbench eval.py)",
+    )
+    ap.add_argument(
+        "--num-perf-trials",
+        type=int,
+        default=0,
+        help="performance timing trials; 0 disables timing (Phase-II scope)",
+    )
     args = ap.parse_args()
 
     out_path = Path(args.out)
@@ -387,7 +408,9 @@ def main():
 
         for pid in ids:
             result = run_one(level, pid, ds, verbose=args.verbose,
-                             build_root=args.build_root)
+                             build_root=args.build_root,
+                             num_correct_trials=args.num_correct_trials,
+                             num_perf_trials=args.num_perf_trials)
             results.append(result)
             # append incrementally so partial results survive crashes
             with open(out_path, "a") as f:

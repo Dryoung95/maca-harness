@@ -6,6 +6,11 @@ optloop/mt3/
 optloop/diagbuild/
 batch_build/
 rerun_build/
+align_build/
+test_build/
+
+# In-progress alignment results (committed once complete)
+align-full.*
 
 # Extension binaries & object files
 *.so

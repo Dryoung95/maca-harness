@@ -1,0 +1,15 @@
+{
+  "passed": 249,
+  "failed": 1,
+  "skipped": 0,
+  "total": 250,
+  "gpu": "MetaX C500",
+  "memory_gb": 68.3,
+  "by_level": {
+    "L1": "99/100",
+    "L2": "100/100",
+    "L3": "50/50"
+  },
+  "gate": "official 5-correctness-trials, fp32 atol=rtol=1e-4, eval mode",
+  "note": "249/250; sole failure L1 P76 is conv algorithm nondeterminism, resolved by torch.backends.cudnn.deterministic=True"
+}

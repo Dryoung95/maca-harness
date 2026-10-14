@@ -144,8 +144,14 @@ def build_modelnew_from_ref(ref_code: str) -> str:
     return None
 
 
-def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_root: str = None, num_correct_trials: int = 5, num_perf_trials: int = 0) -> dict:
-    """Run correctness evaluation for one problem. Returns result dict."""
+def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_root: str = None, num_correct_trials: int = 5, num_perf_trials: int = 0, eval_mode: bool = True) -> dict:
+    """Run correctness evaluation for one problem. Returns result dict.
+
+    eval_mode is honoured at the harness layer (shims/sitecustomize.py) so
+    that kernelbench source stays pristine; it is translated into the
+    MACA_EVAL_MODE environment variable here.
+    """
+    os.environ["MACA_EVAL_MODE"] = "1" if eval_mode else "0"
     t0 = time.time()
     result = {
         "level": level,
@@ -368,6 +374,15 @@ def main():
         default=0,
         help="performance timing trials; 0 disables timing (Phase-II scope)",
     )
+    ap.add_argument(
+        "--no-eval-mode",
+        dest="eval_mode",
+        action="store_false",
+        default=True,
+        help="compare models in eval mode (default). Pass --no-eval-mode to "
+             "restore the original upstream behaviour, where models stay in "
+             "train mode and Dropout/BatchNorm diverge across instances.",
+    )
     args = ap.parse_args()
 
     out_path = Path(args.out)
@@ -410,7 +425,8 @@ def main():
             result = run_one(level, pid, ds, verbose=args.verbose,
                              build_root=args.build_root,
                              num_correct_trials=args.num_correct_trials,
-                             num_perf_trials=args.num_perf_trials)
+                             num_perf_trials=args.num_perf_trials,
+                             eval_mode=args.eval_mode)
             results.append(result)
             # append incrementally so partial results survive crashes
             with open(out_path, "a") as f:

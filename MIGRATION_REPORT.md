@@ -325,7 +325,7 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 
 - **判决探针**（`probe_p76_verdict.py`）：full-tensor 前向与 im2col + GEMM 基准（从不调用 conv kernel）相差 2.0–2.7；同一卷积逐批执行（每批 ≤ 33.5M 元素）却在**每个**批次上与基准吻合到 8.3e-7。默认、`deterministic=True`、`benchmark=True` 三种后端模式下 full-tensor 全部错误。
 - **尺度探针**（`probe_p76_scope.py`）：batch 1–32（最高 1,073,725,440 输入元素）full-tensor 与 per-batch 逐位相同（maxdiff 0.000e+00），batch 64（2,147,450,880）才出错。形状扫描（另一会话的 `conv32_sweep.json`）把阈值定位在 1.61B–1.64B 输入元素之间，且坏批次**始终是首尾对称的块**（B=64 坏 0–15 与 48–63；B=52 坏 0–3 与 48–51）——这是 addressing/tiling 缺陷的特征签名，不是浮点非确定性。
-- **勘误探针**（`probe_p76_reconcile.py` + 逐字重跑 `probe_determinism.py`）：**此前"设 `deterministic=True` 后差异降为恰好 0"的判读是错的**。用对方原始协议逐字重跑，四个单元（train/eval × det 0/1）maxdiff 全部是 2.7472，99.98% 的输出元素错误；同一模型重复前向确实逐位一致（maxdiff 0.000e+00）。**该路径是确定性的，但结果是错的**——deterministic 标志不能修复它，前作把"确定性"误读成了"不可复现的算法选择"。
+- **勘误探针**（`probe_p76_reconcile.py` + 逐字重跑 `probe_determinism.py`）：**此前"设 `deterministic=True` 后差异降为恰好 0"的判读是错的**。用对方原始协议逐字重跑，四个单元（train/eval × det 0/1）maxdiff 全部是 2.7472，99.98% 的输出元素错误；同一模型重复前向确实逐位一致（maxdiff 0.000e+00）。**该路径是确定性的，但结果是错的**——deterministic 标志不能修复它，前作把"确定性"误读成了"不可复现的算法选择"。（该协议对 P76 本就无法测出非确定性：它比较权重必然不同的两个模型——P76 无 Dropout/BN，ma 与 mb 输出差异的唯一来源就是权重抽取，这在任何平台上都不可能为 0。）
 
 （模型模式在此题无关：P76 不含 Dropout/BN。）per-batch 路径完全正确说明 conv 语义在任意单批尺度都受支持，缺陷只限于大张量快速路径。此题维持 `failed` 是正确的裁定——这是 270 题里唯一一处真实的后端计算缺陷。
 

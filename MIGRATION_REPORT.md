@@ -223,7 +223,7 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 
 1. **第二阶段启动**：性能调优。249 道 passed 题已有 build cache，可直接计时；前期数据显示手写 kernel 相对 eager 的加速比还有很大空间（P1 tiled matmul 仅 0.05x）
 2. ~~**修 pydra 依赖**~~ ✅ 已通过 `shims/pydra.py` + `shims/modal.py` 解决，官方 CLI 端到端可用（见 §8.2）
-3. ~~**数值非确定性处理**~~ ✅ 已定位根因并按官方口径处理（见 §8）：9 道为 train 模式比较假象，1 道（P76）为 conv 算法非确定性
+3. ~~**数值非确定性处理**~~ ✅ 已定位根因并按官方口径处理（见 §8）：9 道为 train 模式比较假象，1 道（P76）为 MACA 大张量 conv 缺陷（非浮点非确定性，见 §8.3 勘误）
 4. ~~**L4 覆盖**：下载 HF 模型后用同一流程跑 20 道推理题~~ ✅ 20/20 通过，权重经 `HF_ENDPOINT` 镜像下载（见 §8.5）
 5. ~~**大显存硬件**：57 道 OOM 题补齐~~ ✅ 已在 64 GB 规格上完成（见 §7）
 
@@ -263,11 +263,11 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 
 修复后这 4 道全部通过，`run_batch.py` 的 identity wrapper 现在能正确处理：0 维/空输出、非 fp32 输出、以及 ≥2³¹ 元素的输出。
 
-### 7.4 剩余 11 道：数值非确定性（初跑 10 道 + 新增 P76）
+### 7.4 剩余 11 道：数值非确定性 10 道 + MACA 大张量 conv 缺陷 1 道（P76）
 
 | 题目 | 备注 |
 |---|---|
-| **L1 P76** conv_standard_1D dilated+strided（**新增**） | 初跑被跳过；eager 双跑 max diff **6.47**，属同一类后端数值问题 |
+| **L1 P76** conv_standard_1D dilated+strided（**新增**） | 初跑被跳过；**非"数值非确定性"**——是 MACA 大张量 conv 路径的真实计算缺陷，见 §8.3 勘误 |
 | L2 P66 Matmul_Dropout_Softmax | dropout + softmax |
 | L3 P9/P10 ResNet18/101 | conv/BN 归约顺序 |
 | L3 P15/P16 DenseNet121/201 | 同上 |
@@ -321,13 +321,20 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 | L2（融合算子） | **100 / 100** |
 | L3（完整模型） | **50 / 50** |
 
-**唯一剩余失败：L1 P76**（dilated strided 1D conv）。reference 自比（无候选 kernel）max diff 达 8.4，设 `torch.backends.cudnn.deterministic=True` 后降为恰好 0——即该后端的 conv 算法选择在运行间不可复现。这是后端数值特性，不是迁移缺陷；且它不受模型模式影响（P76 不含 Dropout/BN）。
+**唯一剩余失败：L1 P76**（dilated strided 1D conv，输入 (64, 64, 524280) = 2,147,450,880 元素）。**这是迁移过程中暴露的唯一真实平台缺陷**，位于 MACA 运行时的大张量 conv 路径，不在迁移代码里。三组独立探针合拢：
+
+- **判决探针**（`probe_p76_verdict.py`）：full-tensor 前向与 im2col + GEMM 基准（从不调用 conv kernel）相差 2.0–2.7；同一卷积逐批执行（每批 ≤ 33.5M 元素）却在**每个**批次上与基准吻合到 8.3e-7。默认、`deterministic=True`、`benchmark=True` 三种后端模式下 full-tensor 全部错误。
+- **尺度探针**（`probe_p76_scope.py`）：batch 1–32（最高 1,073,725,440 输入元素）full-tensor 与 per-batch 逐位相同（maxdiff 0.000e+00），batch 64（2,147,450,880）才出错。形状扫描（另一会话的 `conv32_sweep.json`）把阈值定位在 1.61B–1.64B 输入元素之间，且坏批次**始终是首尾对称的块**（B=64 坏 0–15 与 48–63；B=52 坏 0–3 与 48–51）——这是 addressing/tiling 缺陷的特征签名，不是浮点非确定性。
+- **勘误探针**（`probe_p76_reconcile.py` + 逐字重跑 `probe_determinism.py`）：**此前"设 `deterministic=True` 后差异降为恰好 0"的判读是错的**。用对方原始协议逐字重跑，四个单元（train/eval × det 0/1）maxdiff 全部是 2.7472，99.98% 的输出元素错误；同一模型重复前向确实逐位一致（maxdiff 0.000e+00）。**该路径是确定性的，但结果是错的**——deterministic 标志不能修复它，前作把"确定性"误读成了"不可复现的算法选择"。
+
+（模型模式在此题无关：P76 不含 Dropout/BN。）per-batch 路径完全正确说明 conv 语义在任意单批尺度都受支持，缺陷只限于大张量快速路径。此题维持 `failed` 是正确的裁定——这是 270 题里唯一一处真实的后端计算缺陷。
 
 ### 8.4 结论
 
 - `backend_error`（工具链编译失败）：**0 例**
 - 真正的 `algorithm_error`（迁移引入的正确性缺陷）：**0 例**
 - 全部 250 题在官方门槛建下编译并运行，工具链经受住了完整检验
+- 唯一未通过题（L1 P76）是 **MACA 大张量 conv 缺陷**，已在三组探针下定性，不属于迁移缺陷
 
 当前基线数据集为 `align-final.jsonl`。
 

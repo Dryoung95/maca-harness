@@ -101,6 +101,63 @@ class _PatchFinder(importlib.abc.MetaPathFinder):
         return None
 
 
+class _D7SafeConvPatch:
+    """Wrap nn.Conv1d.forward with the D7 batch-slicing workaround.
+
+    D7 (defects/README.md in kda-on-maca): a full-tensor Conv1d on a
+    >~1.62e9-element input silently corrupts the first and last (B-48)
+    batches; per-batch slices of the same tensor are all correct. Conv1d is
+    independent per batch sample, so slicing is the same math on a
+    non-corrupted path.
+
+    This patch is what makes the gate's REFERENCE forward correct on the
+    affected shapes -- the reference is the full-tensor call, i.e. the
+    corrupted path, so without it no correct candidate can pass (verified
+    2026-10-15: candidate vs im2col umpire 9.5e-7, reference vs umpire 1.99).
+    Applied to both sides of the comparison it removes the defect from the
+    measurement entirely rather than rescuing one side.
+
+    Guard is conservative: the trigger was bisected to between 1.6106e9
+    (ok) and 1.6384e9 (bad), so 1.62e9 sits inside the verified-good margin.
+    Below it, behaviour is bit-for-bit the stock forward.
+    """
+
+    D7_GUARD_ELEMS = 1.62e9
+    SLICE_BATCH = 32
+
+    @staticmethod
+    def apply():
+        import torch
+        if getattr(torch.nn.Conv1d, "_maca_d7_patched", False):
+            return
+        original = torch.nn.Conv1d.forward
+
+        def patched(self, x):
+            if (x.dim() != 3
+                    or x.numel() <= _D7SafeConvPatch.D7_GUARD_ELEMS):
+                return original(self, x)
+            return torch.cat(
+                [original(self, x[i:i + _D7SafeConvPatch.SLICE_BATCH])
+                 for i in range(0, x.size(0), _D7SafeConvPatch.SLICE_BATCH)],
+                dim=0)
+
+        patched.__wrapped__ = original
+        torch.nn.Conv1d.forward = patched
+        torch.nn.Conv1d._maca_d7_patched = True
+
+
+def _apply_d7_patch():
+    try:
+        _D7SafeConvPatch.apply()
+    except Exception as e:  # never break an import over this
+        print(f"[maca-harness] D7 conv patch failed: {e}", file=sys.stderr)
+
+
 # Always install: the flag is re-read on every wrapped call, so a caller can
 # flip MACA_EVAL_MODE at runtime (run_batch.py --no-eval-mode sets it to "0").
 sys.meta_path.insert(0, _PatchFinder())
+
+# The Conv1d guard is size-based, not flag-gated: there is no legitimate
+# reason to run the corrupted path, and every consumer of this PYTHONPATH
+# (run_batch, the gate drivers, the raw torch process) needs it.
+_apply_d7_patch()

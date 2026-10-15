@@ -11,5 +11,5 @@
     "L3": "50/50"
   },
   "gate": "official 5-correctness-trials, fp32 atol=rtol=1e-4, eval mode",
-  "note": "249/250; sole failure L1 P76 is conv algorithm nondeterminism, resolved by torch.backends.cudnn.deterministic=True"
+  "note": "249/250 native scale; sole failure L1 P76 is MACA defect D7 (large-tensor Conv1d corruption, >~1.62e9 input elements), not nondeterminism. P76 passes under the D7-safe harness patch (shims/sitecustomize.py batch-slicing guard); see d7regress/p76_d7fixed runs. This earlier note's deterministic=True claim was investigated and does not hold."
 }

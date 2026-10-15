@@ -1,0 +1,1 @@
+{"level": 1, "problem_id": 76, "status": "passed", "compiled": true, "correctness": true, "trials": "(5 / 5)", "failure_class": "none", "error": null, "wall_seconds": 148.44, "name": "76_conv_standard_1D_dilated_strided__.py", "static_input_elems": 2147450880, "metadata": {"hardware": "MetaX C500", "device": "cuda:0", "correctness_trials": "(5 / 5)"}}

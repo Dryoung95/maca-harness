@@ -7,7 +7,7 @@
 |---|---|---|---|
 | 第一阶段（初跑） | 16.3 GB | 1-trial | 182 / 250（72.8%） |
 | 第一阶段补跑 | 68.3 GB（64 GB 规格） | 1-trial | 240 / 250（96.0%） |
-| **官方门槛建对齐** | 68.3 GB | **官方 5-trial + eval 模式** | **249 / 250（99.6%）** |
+| **官方门槛建对齐** | 68.3 GB | **官方 5-trial + eval 模式** | **249 / 250（99.6%）未修补；D7-safe 补丁下 250 / 250（§3.1.3）** |
 | **Level 4 覆盖** | 68.3 GB | 同上 | **20 / 20（100%）** |
 
 ---
@@ -188,7 +188,7 @@ L2 P66；L3 P9, P10, P15, P16, P20, P22, P23, P24, P49
 | `batch-results_summary.json` | 汇总计数（16.3 GB 配置） |
 | `batch-results-64gb.jsonl` | 64 GB 补跑后的合并结果（1-trial 门槛，250 题） |
 | `batch-results-64gb_summary.json` | 汇总计数（64 GB 配置） |
-| `align-final.jsonl` | 官方门槛建（5-trial + eval 模式）最终结果：249/250，当前基线 |
+| `align-final.jsonl` | 官方门槛建（5-trial + eval 模式）最终结果：249/250，当前基线（D7-safe 补丁下 250/250，见 README §3.1.3） |
 | `l4-results.jsonl` | L4（HuggingFace 推理）20 道在官方门槛建下的结果：20/20 |
 | `rerun-64gb.jsonl` / `rerun-64gb.log` | 68 道未通过题在 64 GB 上的重跑结果与日志 |
 | `batch-run.log` | 批量执行完整日志（16.3 GB 配置） |
@@ -313,7 +313,7 @@ python3 run_batch.py --levels 1 --problem-ids 1 \
 
 ### 8.3 最终结果
 
-**官方门槛建（5-trial 正确性 + fp32 1e-4 容差 + eval 模式）：249 / 250（99.6%）**
+**官方门槛建（5-trial 正确性 + fp32 1e-4 容差 + eval 模式）：249 / 250（99.6%）未修补；D7-safe Conv1d 补丁下 250 / 250（见 README §3.1.3）**
 
 | Level | 通过率 |
 |---|---|

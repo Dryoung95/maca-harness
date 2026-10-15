@@ -97,7 +97,8 @@ Two deviations from the official standard were identified and corrected, then th
 
 Eval mode is applied entirely at the harness layer (`shims/sitecustomize.py`, loaded via `PYTHONPATH`), so the KernelBench source remains pristine. Setting `MACA_EVAL_MODE=0` (or `run_batch.py --no-eval-mode`) restores the original upstream behaviour exactly; both directions were verified against L3 P9 (ResNet18), which passes 5/5 in eval mode and fails in train mode.
 
-**Final result at the official gate: 249 / 250 passed (99.6%).**
+**Final result at the official gate: 249 / 250 passed (99.6%) unpatched —
+250 / 250 with the D7-safe harness patch (see §3.1.3).**
 
 | Level | Pass rate |
 |---|---|
@@ -105,7 +106,39 @@ Eval mode is applied entirely at the harness layer (`shims/sitecustomize.py`, lo
 | L2 fused operators | **100 / 100** |
 | L3 complete models | **50 / 50** |
 
-The sole remaining failure is **L1 P76** (dilated, strided 1-D convolution, input (64, 64, 524280) = 2,147,450,880 elements). This is the one genuine platform defect the port surfaced, and it lies in MACA's large-tensor conv path rather than in the port: the full-tensor forward disagrees with an im2col + GEMM adjudicator that never invokes the conv kernel (maxdiff 2.0–2.7), while executing the same convolution one batch at a time (≤ 33.5M elements per slice) matches that adjudicator to 8.3e-7 on every batch. The boundary is sharp and scale-based — batches 1–32 (up to 1,073,725,440 input elements) are bit-exact against per-batch execution, batch 64 (2,147,450,880) is wrong, and a shape sweep places the threshold between 1.61B and 1.64B input elements, with the corrupted batches falling in symmetric head/tail blocks (e.g. batches 0–15 and 48–63 of 64) — an addressing/tiling signature, not floating-point non-determinism. Setting `torch.backends.cudnn.deterministic=True` does **not** correct it: re-running the determinism probe verbatim yields maxdiff 2.747 with 99.98% of output elements wrong in all four train/eval × deterministic cells, so the earlier reading of this problem as non-reproducible algorithm selection was wrong — the path is deterministic but incorrect. (That protocol could not have measured nondeterminism for P76 in the first place: it compares two models whose weights necessarily differ — P76 has no Dropout or BatchNorm, so the only source of ma-vs-mb difference is the weight draw, which is nonzero on any platform.) (Model mode is irrelevant here; P76 contains no Dropout or BatchNorm.) Per-batch execution being exact confirms the conv semantics are supported at any single-batch scale; the defect is confined to the large-tensor fast path. As a corroboration, **L1 P87** (pointwise 2-D conv, 16×64×1024×1024 = 2³⁰ = 1,073,741,824 input elements) passes — just 16,384 elements above the largest bit-exact point my scale probe measured, and below the threshold the sweep places at ~1.6B. See `probe_p76_verdict.py` / `probe_p76_scope.py` / `probe_p76_reconcile.py`.
+The sole unpatched failure is **L1 P76** (dilated, strided 1-D convolution, input (64, 64, 524280) = 2,147,450,880 elements). This is the one genuine platform defect the port surfaced, and it lies in MACA's large-tensor conv path rather than in the port: the full-tensor forward disagrees with an im2col + GEMM adjudicator that never invokes the conv kernel (maxdiff 2.0–2.7), while executing the same convolution one batch at a time (≤ 33.5M elements per slice) matches that adjudicator to 8.3e-7 on every batch. The boundary is sharp and scale-based — batches 1–32 (up to 1,073,725,440 input elements) are bit-exact against per-batch execution, batch 64 (2,147,450,880) is wrong, and a shape sweep places the threshold between 1.61B and 1.64B input elements, with the corrupted batches falling in symmetric head/tail blocks (e.g. batches 0–15 and 48–63 of 64) — an addressing/tiling signature, not floating-point non-determinism. Setting `torch.backends.cudnn.deterministic=True` does **not** correct it: re-running the determinism probe verbatim yields maxdiff 2.747 with 99.98% of output elements wrong in all four train/eval × deterministic cells, so the earlier reading of this problem as non-reproducible algorithm selection was wrong — the path is deterministic but incorrect. (That protocol could not have measured nondeterminism for P76 in the first place: it compares two models whose weights necessarily differ — P76 has no Dropout or BatchNorm, so the only source of ma-vs-mb difference is the weight draw, which is nonzero on any platform.) (Model mode is irrelevant here; P76 contains no Dropout or BatchNorm.) Per-batch execution being exact confirms the conv semantics are supported at any single-batch scale; the defect is confined to the large-tensor fast path. As a corroboration, **L1 P87** (pointwise 2-D conv, 16×64×1024×1024 = 2³⁰ = 1,073,741,824 input elements) passes — just 16,384 elements above the largest bit-exact point my scale probe measured, and below the threshold the sweep places at ~1.6B. See `probe_p76_verdict.py` / `probe_p76_scope.py` / `probe_p76_reconcile.py`.
+
+#### 3.1.3 P76 passes under the D7-safe harness patch ✅
+
+The 249/250 figure is the honest *unpatched* native-scale result; it is not
+the end of what the harness can do. Because Conv1d is independent per batch
+sample, slicing the batch dimension and concatenating is the same
+computation on a non-corrupted path — a legitimate workaround, not an
+approximation. `shims/sitecustomize.py` now applies that guard to
+`nn.Conv1d.forward` for inputs above 1.62e9 elements only (the bisected
+trigger sits between 1.6106e9 and 1.6384e9, so the guard is inside the
+verified-good margin). Measured 2026-10-15:
+
+| check | result |
+|---|---|
+| batch-sliced candidate vs im2col umpire (full P76 shape) | maxdiff **9.5e-07**, 0 bad elements |
+| gate reference forward vs umpire (same shape) | maxdiff 1.99, ~357M bad elements — the *reference* is the corrupted path |
+| L1 P76 through the real 5-trial gate, patch active | **passed 5/5** (`runs/p76_d7fixed.jsonl`) |
+| regression: L1 P67, L3 P29 — the only other Conv1d problems | both **passed 5/5** (`runs/d7regress.jsonl`) |
+
+The regression scope is exact: only three of the 250 problems use `Conv1d`
+at all, and of those only P76 exceeds the guard (P67 268M, P29 1.5M
+elements — both take the bit-identical stock forward). The other 247
+problems contain no `Conv1d` and cannot be touched by a patch to
+`Conv1d.forward`.
+
+The decisive subtlety: the gate's *reference* forward is itself the
+full-tensor conv, i.e. the corrupted path, so no correct candidate can pass
+the unpatched comparison — the ground truth is what is broken. Patching
+both sides removes the defect from the measurement instead of rescuing one
+side. The 250/250 it yields is a **workaround-passed** result and is
+documented as such; the unpatched 249/250 remains the figure for gauging
+the platform itself.
 
 **Principal finding: zero occurrences of `backend_error` (toolchain compilation failure) and zero occurrences of `algorithm_error` (correctness defect introduced by the port).** Every non-passing problem encountered at any stage is attributable to one of the following:
 
@@ -143,7 +176,8 @@ A precision study confirms this result is not an artifact of lenient tolerance: 
 |---|---|
 | `KernelBench/` | Upstream source, unmodified |
 | `run_batch.py` | Batch correctness executor |
-| `align-final.jsonl` / `_summary.json` | **Final results at the official 5-trial gate, eval mode — the current L1–3 baseline (249/250)** |
+| `align-final.jsonl` / `_summary.json` | **Final results at the official 5-trial gate, eval mode — the current L1–3 baseline (249/250 unpatched; 250/250 with the D7-safe conv patch, §3.1.3)** |
+| `runs/p76_d7fixed.jsonl`, `runs/d7regress.jsonl` | P76 pass + Conv1d regression checks under the D7-safe patch (2026-10-15) |
 | `l4-results.jsonl` / `_summary.json` | Level 4 results at the same gate — 20/20 |
 | `align-full.jsonl` / `.log` | Full 250-problem run at the official 5-trial gate (train-mode semantics) |
 | `align-evalmode.jsonl` | Re-run of the 12 train-mode failures under eval mode |
@@ -153,7 +187,7 @@ A precision study confirms this result is not an artifact of lenient tolerance: 
 | `rerun-64gb.jsonl` / `rerun-64gb.log` | Re-run of the 68 non-passing problems on the 64 GB SKU |
 | `batch-run.log` | Full execution log (16.3 GB configuration) |
 | `env.sh` | Environment configuration |
-| `shims/` | Environment-layer compatibility: import stubs for `openai` / `litellm` / `pydra` / `modal` (offline environment), plus `sitecustomize.py` which applies eval-mode comparison without touching upstream source |
+| `shims/` | Environment-layer compatibility: import stubs for `openai` / `litellm` / `pydra` / `modal` (offline environment), plus `sitecustomize.py` which applies eval-mode comparison and the D7-safe Conv1d guard (§3.1.3) without touching upstream source |
 | `optloop/` | Phase II kernel sources and experiments (wmma variants, mcblas, mctlass, probes) |
 | `DECISIONS.md` | Technical decision record |
 | `MIGRATION_REPORT.md` | Full migration report |
@@ -167,7 +201,10 @@ A precision study confirms this result is not an artifact of lenient tolerance: 
 source env.sh
 
 # 2. Full correctness sweep at the official gate (5 correctness trials,
-#    fp32 atol=rtol=1e-4, eval mode); ~4 hours on the 64 GB SKU
+#    fp32 atol=rtol=1e-4, eval mode, D7-safe Conv1d guard); ~4 hours on
+#    the 64 GB SKU. The conv guard is size-based and applied to both sides
+#    of the comparison, so passing problems use the stock forward and only
+#    D7-affected shapes take the sliced path (§3.1.3).
 python3 run_batch.py --levels 1,2,3 \
   --out align-final.jsonl --build-root align_build
 
@@ -219,7 +256,7 @@ None of these is a platform defect. The first three were invisible until the 64 
 1. **`store_matrix_sync` disregards the layout tag.** The `mem_row_major` and `mem_col_major` variants produce identically transposed memory layouts.
 2. **`load_matrix_sync` (column-major variant) scrambles data.** A double-width vectorized read misorders elements; the behavior resolves correctly when the shared-memory tile carries padding (stride ≠ 16).
 3. **Bit-level reinterpretation of `__half` yields garbage.** Reinterpretation through `unsigned`, `half2`, or `ulonglong2` produces invalid values; only scalar element-wise access is reliable.
-4. **Large-tensor conv computes incorrect results (L1 P76).** Above ~1.6B input elements the 1-D conv path returns wrong values — 99.98% of output elements off, maxdiff 2.0–2.7 against an im2col + GEMM adjudicator that never invokes the conv kernel — while the same convolution executed one batch at a time is exact (8.3e-7). Corrupted batches fall in symmetric head/tail blocks, an addressing/tiling signature. `cudnn.deterministic=True` does not correct it (the path is deterministic but wrong); per-batch execution is the clean workaround outside the benchmark. Reproduce with `probe_p76_verdict.py` / `probe_p76_scope.py` / `probe_p76_reconcile.py`.
+4. **Large-tensor conv computes incorrect results (L1 P76).** Above ~1.6B input elements the 1-D conv path returns wrong values — 99.98% of output elements off, maxdiff 2.0–2.7 against an im2col + GEMM adjudicator that never invokes the conv kernel — while the same convolution executed one batch at a time is exact (8.3e-7). Corrupted batches fall in symmetric head/tail blocks, an addressing/tiling signature. `cudnn.deterministic=True` does not correct it (the path is deterministic but wrong). **Mitigated inside the benchmark**: the harness applies a D7-safe batch-slicing guard to `nn.Conv1d.forward` above 1.62e9 input elements (§3.1.3), under which P76 passes 5/5 — the platform defect remains, but the port no longer fails on it. Reproduce with `probe_p76_verdict.py` / `probe_p76_scope.py` / `probe_p76_reconcile.py`.
 
 Additionally, **mctlass** (the MACA counterpart of CUTLASS) was evaluated and found unsuitable at the device-GEMM layer owing to a warp-64 porting gap: an `mxcc` inliner codegen defect causing host-side segfaults at `-O2` (mitigated by `-fno-inline`), a `ColumnMajor` output specialization that computes B@A due to untransposed leading dimensions, and a SIMT epilogue whose row-mapping writes only half of the rows. These are documented rather than corrected, as a blind fix would risk the tensor-op paths.
 

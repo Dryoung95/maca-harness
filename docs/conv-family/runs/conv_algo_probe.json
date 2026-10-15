@@ -1,0 +1,114 @@
+[
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f32",
+  "math": 0,
+  "ws": 201216,
+  "maxdiff": 3.7337584495544434
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f32",
+  "math": 1,
+  "ws": 0,
+  "maxdiff": 3.7333168983459473
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f32",
+  "math": 0,
+  "ws": 1179648,
+  "maxdiff": 3.7314205169677734
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f32",
+  "math": 1,
+  "ws": 1179648,
+  "maxdiff": 3.7333168983459473
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f16",
+  "math": 0,
+  "ws": 100608,
+  "maxdiff": 6.044501304626465
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f16",
+  "math": 1,
+  "ws": 100608,
+  "maxdiff": 6.044501304626465
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f16",
+  "math": 0,
+  "ws": 589824,
+  "maxdiff": 6.044501304626465
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f16",
+  "math": 1,
+  "ws": 589824,
+  "maxdiff": 6.044501304626465
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f16/f32out",
+  "math": 0,
+  "ws": 100608,
+  "maxdiff": 3.562385320663452
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "f16/f32out",
+  "math": 1,
+  "ws": 100608,
+  "maxdiff": 3.562385320663452
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f16/f32out",
+  "math": 0,
+  "ws": 589824,
+  "maxdiff": 3.561408758163452
+ },
+ {
+  "algo": "FFT_TILING",
+  "dtype": "f16/f32out",
+  "math": 1,
+  "ws": 589824,
+  "maxdiff": 3.561408758163452
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "bf16",
+  "math": 0,
+  "ws": 100608,
+  "maxdiff": 39944282112.0
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "bf16",
+  "math": 1,
+  "ws": 100608,
+  "maxdiff": 39944282112.0
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "bf16/f32out",
+  "math": 0,
+  "ws": 100608,
+  "maxdiff": 3.560432195663452
+ },
+ {
+  "algo": "IMPLICIT_PRECOMP_GEMM",
+  "dtype": "bf16/f32out",
+  "math": 1,
+  "ws": 100608,
+  "maxdiff": 3.560432195663452
+ }
+]

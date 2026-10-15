@@ -1,0 +1,37 @@
+[
+ {
+  "tag": "A vendor exact (b1 c4 16 k5)",
+  "status": 0,
+  "maxdiff": 0.012605786323547363
+ },
+ {
+  "tag": "B k5->k3",
+  "status": 0,
+  "maxdiff": 0.005738735198974609
+ },
+ {
+  "tag": "C batch 1->2",
+  "status": 0,
+  "maxdiff": 0.012807846069335938
+ },
+ {
+  "tag": "D in_ch 4->8",
+  "status": 0,
+  "maxdiff": 0.014946937561035156
+ },
+ {
+  "tag": "E out_ch 16->6",
+  "status": 0,
+  "maxdiff": 0.008382797241210938
+ },
+ {
+  "tag": "F hw 16->32",
+  "status": 0,
+  "maxdiff": 0.014708518981933594
+ },
+ {
+  "tag": "G my full config (b2 c8 32 k3)",
+  "status": 0,
+  "maxdiff": 0.013336181640625
+ }
+]

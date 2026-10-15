@@ -1,0 +1,148 @@
+[
+ {
+  "shape": "P50 (256x3x224x224 k11 s4 p2)",
+  "eager_ms": 6.8665,
+  "combos": [
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.0,
+    "ms": 6.8567,
+    "speedup": 1.001
+   },
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.033480167388916016,
+    "ms": 6.8933,
+    "speedup": 0.996
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "DEFAULT/TF32",
+    "status": 3
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "FMA/exact",
+    "status": 3
+   }
+  ]
+ },
+ {
+  "shape": "P55 (8x64x512x1024 k3 s1 p1)",
+  "eager_ms": 9.8773,
+  "combos": [
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.0,
+    "ms": 9.8805,
+    "speedup": 1.0
+   },
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.04508781433105469,
+    "ms": 40.2534,
+    "speedup": 0.245
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.136474609375,
+    "ms": 15.36,
+    "speedup": 0.643
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.04508018493652344,
+    "ms": 18.5096,
+    "speedup": 0.534
+   }
+  ]
+ },
+ {
+  "shape": "P62 (8x64x512x256 k3 s1 p1)",
+  "eager_ms": 2.537,
+  "combos": [
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.0,
+    "ms": 2.542,
+    "speedup": 0.998
+   },
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.04216194152832031,
+    "ms": 10.086,
+    "speedup": 0.252
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.126373291015625,
+    "ms": 3.6532,
+    "speedup": 0.694
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.042156219482421875,
+    "ms": 4.5491,
+    "speedup": 0.558
+   }
+  ]
+ },
+ {
+  "shape": "small (8x64x64x64 k3 s1 p1)",
+  "eager_ms": 0.1314,
+  "combos": [
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.0,
+    "ms": 0.1324,
+    "speedup": 0.993
+   },
+   {
+    "algo": "PRECOMP_GEMM",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.03911590576171875,
+    "ms": 0.4275,
+    "speedup": 0.307
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "DEFAULT/TF32",
+    "status": 0,
+    "maxdiff": 0.1081390380859375,
+    "ms": 0.2768,
+    "speedup": 0.475
+   },
+   {
+    "algo": "FFT_TILING",
+    "math": "FMA/exact",
+    "status": 0,
+    "maxdiff": 0.03911399841308594,
+    "ms": 0.3231,
+    "speedup": 0.407
+   }
+  ]
+ }
+]

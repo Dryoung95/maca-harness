@@ -55,6 +55,7 @@ perf-baseline.log
 perf-baseline_summary.json
 perf-baseline.jsonl.premerge
 rerun_l4.log
+perf-baseline-l4-clean_summary.json
 
 # Sibling-session run artifacts inside the pristine tree
 KernelBench/KernelBench/level3/runs/

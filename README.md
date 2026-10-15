@@ -181,6 +181,8 @@ Largest wins: L3 ShallowWideMLP 6.87×, L2 P56 6.05×, L1 large-K 2.80×. Two li
 
 A precision study confirms this result is not an artifact of lenient tolerance: on the problem's actual `torch.rand` inputs (positive-valued), the measured relative error is 2.9e-6 — comfortably within the fp32 tolerance of 1e-4. Under signed, cancellation-prone distributions (`randn`), the absolute-error criterion becomes binding; however, the fp16-input path in fact achieves *lower* relative error (3.6e-5) than the pure-fp32 mcblas path (3.2e-4), indicating that the observation reflects the strictness of the `allclose` criterion under input cancellation rather than any degradation in numerical accuracy.
 
+**The conv family does not extend this win.** The GEMM line's fp16 trick does not transfer, and the reason is structural rather than a matter of finding the right kernel. All four plausible paths were measured and disprove themselves (`docs/conv-family/conv-family-negative.md`): the SDK has no usable fp16 conv (`f16→f32` returns `BAD_PARAM`, `f16→f16` runs at 5.7e-2 error); direct mcdnn cannot beat eager because it *is* eager — the one gate-correct configuration (`PRECOMP_GEMM` + `DEFAULT_MATH`) ties at maxdiff exactly 0.000 and exactly 1.00×, since torch already links the same `libmcdnn.so`; the FMA (exact-fp32) variants are more precise than the TF32 reference and therefore measure as errors against it; and im2col + fp16-GEMM decomposition loses on both axes, the unfold's memory traffic alone costing 2–3× the whole eager conv. Moving conv needs a vendor-side change (a working fp16 path, or Winograd kernels that are actually instantiated), not a harness-side one, so 58/82 is the performance line's final number.
+
 ---
 
 ## 4. Repository Layout
@@ -202,6 +204,7 @@ A precision study confirms this result is not an artifact of lenient tolerance: 
 | `env.sh` | Environment configuration |
 | `shims/` | Environment-layer compatibility: import stubs for `openai` / `litellm` / `pydra` / `modal` (offline environment), plus `sitecustomize.py` which applies eval-mode comparison and the D7-safe Conv1d guard (§3.1.3) without touching upstream source |
 | `optloop/` | Phase II kernel sources and experiments (wmma variants, mcblas, mctlass, probes) |
+| `docs/conv-family/` | Measured negative result for the conv-family performance line: five reproducible probes + raw JSON + write-up (§3.2) |
 | `DECISIONS.md` | Technical decision record |
 | `MIGRATION_REPORT.md` | Full migration report |
 
@@ -284,6 +287,7 @@ Additionally, **mctlass** (the MACA counterpart of CUTLASS) was evaluated and fo
 - [x] Align with the official evaluation gate — 5-trial correctness, fp32 1e-4 tolerance, eval mode; **249/250** unpatched, 250/250 under the D7-safe conv patch (§3.1.2, §3.1.3)
 - [x] Cover Level 4 (20 HuggingFace inference problems) — 20/20 pass at the official gate, weights fetched via the `HF_ENDPOINT` mirror (§3.1.4)
 - [x] Measure the full 270-problem baseline timing sweep — done: **270/270 problems, 262 with timing** (`perf-baseline.jsonl`, `perf-baseline_summary.md`). L1–L3 are 250/250; L4 times 12/20 because the upstream timing loop runs outside `no_grad`, so the causal LMs keep their autograd graph — 30–40 GB of retained activations on top of two model copies, which fits the 80 GB cards KernelBench targets but not this 64 GB board. The 8 affected problems still pass the correctness gate 5/5 (§3.1.4); this is a memory ceiling, not a defect, and is recorded rather than patched over. Measuring L4 needs one fresh interpreter per problem (`rerun_l4_per_problem.py`); the sweep itself takes ~2.5 h
+- [x] Try the conv family as the next performance direction — closed as a **measured negative**: no usable fp16 conv in the SDK, and the one gate-correct direct-mcdnn configuration is a bit-identical tie with eager because both run the same `libmcdnn.so` path. All four paths disproved with reproducible probes; evidence published in `docs/conv-family/` (§3.2)
 
 ---
 

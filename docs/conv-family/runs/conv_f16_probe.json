@@ -1,0 +1,77 @@
+{
+ "results": [
+  {
+   "cfg": "f32->f32/PRECOMP_GEMM/DEFAULT",
+   "ok": false,
+   "maxdiff": 0.03911590576171875,
+   "ms": 0.13008604000788182,
+   "ws": 25460736
+  },
+  {
+   "cfg": "f32->f32/PRECOMP_GEMM/FMA",
+   "ok": true,
+   "maxdiff": 0.0,
+   "ms": 0.42473078006878495,
+   "ws": 0
+  },
+  {
+   "cfg": "f32->f32/FFT_TILING/DEFAULT",
+   "ok": false,
+   "maxdiff": 0.10060882568359375,
+   "ms": 0.24207890004618093,
+   "ws": 61341696
+  },
+  {
+   "cfg": "f32->f32/FFT_TILING/FMA",
+   "ok": true,
+   "maxdiff": 0.00012969970703125,
+   "ms": 0.2879951600334607,
+   "ws": 61341696
+  },
+  {
+   "cfg": "f16->f32/PRECOMP_GEMM/DEFAULT",
+   "ok": false
+  },
+  {
+   "cfg": "f16->f32/PRECOMP_GEMM/FMA",
+   "ok": false
+  },
+  {
+   "cfg": "f16->f32/FFT_TILING/DEFAULT",
+   "ok": false
+  },
+  {
+   "cfg": "f16->f32/FFT_TILING/FMA",
+   "ok": false
+  },
+  {
+   "cfg": "f16->f16/PRECOMP_GEMM/DEFAULT",
+   "ok": false,
+   "maxdiff": 0.05713653564453125,
+   "ms": 0.09897520008962601,
+   "ws": 12730368
+  },
+  {
+   "cfg": "f16->f16/PRECOMP_GEMM/FMA",
+   "ok": false,
+   "maxdiff": 0.05713653564453125,
+   "ms": 0.10012970000389032,
+   "ws": 12730368
+  },
+  {
+   "cfg": "f16->f16/FFT_TILING/DEFAULT",
+   "ok": false,
+   "maxdiff": 0.1929168701171875,
+   "ms": 0.2608423000492621,
+   "ws": 30670848
+  },
+  {
+   "cfg": "f16->f16/FFT_TILING/FMA",
+   "ok": false,
+   "maxdiff": 0.1929168701171875,
+   "ms": 0.2611314800742548,
+   "ws": 30670848
+  }
+ ],
+ "eager_ms": 0.41250790003687143
+}

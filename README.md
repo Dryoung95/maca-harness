@@ -153,6 +153,8 @@ Verified technical coverage across passing problems includes: shared memory, `__
 
 All 20 Level 4 problems pass at the official gate (`l4-results.jsonl`): **20 / 20, every problem 5/5 trials**. Six pretrained models are exercised — `gpt2`, `EleutherAI/gpt-neo-2.7B`, `facebook/opt-1.3b`, `facebook/bart-large`, `google/bigbird-roberta-base`, `google/electra-small-discriminator`, `google/reformer-enwik8` — across batch sizes 1–1024 and sequence lengths 32–4095. Weights were fetched through the `HF_ENDPOINT` mirror already configured in the environment (`hf-mirror.com`; the hub API needs a `User-Agent` header). Total wall-clock 20 min 44 s, mean 62 s/problem.
 
+**Timing caveat (2026-10-15).** Under the full baseline sweep — 20 `cuda_event` timing trials rather than correctness-only — 8 of the 20 OOM where they previously passed: batch sizes ≥ 32 on the larger models (gpt-neo-2.7B, opt-1.3b, bart-large, bigbird). The cause is upstream, not a MACA defect: `timing.py`'s trial loop runs *outside* `torch.no_grad()`, so a causal LM keeps its autograd graph — every attention score matrix and intermediate activation retained, decaying only on the next trial. Two model copies plus 30–40 GB of graph on a single forward exceeds this board's 63.59 GB. KernelBench targets 80 GB cards (H100/A100), where the omission is invisible; here it is the binding constraint, and re-measuring requires one fresh interpreter per problem (`rerun_l4_per_problem.py`) because the caching allocator also accumulates across problems. The 8 remain **5/5 correct**; only their baseline *time* is unavailable, and this is recorded rather than patched over (patching it would change the official measurement semantics).
+
 ### 3.2 Phase II — Performance Optimization 🔄
 
 Phase II targets outperforming the eager-mode reference. Baseline measurements for L1 Problem 1 (square matrix multiplication, n = 4096, `cuda_event` timing):
@@ -281,7 +283,7 @@ Additionally, **mctlass** (the MACA counterpart of CUTLASS) was evaluated and fo
 - [x] Correct the harness wrapper for zero-dimensional, integer, non-contiguous, and ≥2³¹-element outputs (§6.1)
 - [x] Align with the official evaluation gate — 5-trial correctness, fp32 1e-4 tolerance, eval mode; **249/250** unpatched, 250/250 under the D7-safe conv patch (§3.1.2, §3.1.3)
 - [x] Cover Level 4 (20 HuggingFace inference problems) — 20/20 pass at the official gate, weights fetched via the `HF_ENDPOINT` mirror (§3.1.4)
-- [ ] Measure the full 270-problem baseline timing sweep (running; `perf-baseline.jsonl`) — gives every problem an eager reference time for future candidate work
+- [x] Measure the full 270-problem baseline timing sweep — done: **270/270 problems, 262 with timing** (`perf-baseline.jsonl`, `perf-baseline_summary.md`). L1–L3 are 250/250; L4 times 12/20 because the upstream timing loop runs outside `no_grad`, so the causal LMs keep their autograd graph — 30–40 GB of retained activations on top of two model copies, which fits the 80 GB cards KernelBench targets but not this 64 GB board. The 8 affected problems still pass the correctness gate 5/5 (§3.1.4); this is a memory ceiling, not a defect, and is recorded rather than patched over. Measuring L4 needs one fresh interpreter per problem (`rerun_l4_per_problem.py`); the sweep itself takes ~2.5 h
 
 ---
 

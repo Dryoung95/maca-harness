@@ -48,3 +48,7 @@ l4-run.log
 # P76 probe output (regenerable)
 probe_p76_*.log
 probe_determinism_p76_rerun.log
+
+# Full baseline timing sweep artifacts (regenerable)
+perf_build/
+perf-baseline.log

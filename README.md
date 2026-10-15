@@ -149,7 +149,7 @@ the platform itself.
 
 Verified technical coverage across passing problems includes: shared memory, `__syncthreads`, `dim3` grids, `<<<>>>` launches; the matmul family (tiled, batched, transposed, diagonal, 3D, 4D); the convolution family (standard, transposed, depthwise, pointwise; 1D/2D/3D; strided, dilated, padded); cumulative and masked reductions; pooling; normalization (BN/IN/GN/RMSNorm/LayerNorm); activation functions; loss functions; attention; complete models at Level 3 (MLP, AlexNet, ResNet18/101, DenseNet121/201, MobileNetV2, EfficientNet, SqueezeNet, ViT, Mamba2); and pretrained Transformer models at Level 4 (GPT-2, GPT-Neo-2.7B, OPT-1.3B, BART-large, BigBird, ELECTRA, Reformer).
 
-#### 3.1.3 Level 4 — HuggingFace inference ✅
+#### 3.1.4 Level 4 — HuggingFace inference ✅
 
 All 20 Level 4 problems pass at the official gate (`l4-results.jsonl`): **20 / 20, every problem 5/5 trials**. Six pretrained models are exercised — `gpt2`, `EleutherAI/gpt-neo-2.7B`, `facebook/opt-1.3b`, `facebook/bart-large`, `google/bigbird-roberta-base`, `google/electra-small-discriminator`, `google/reformer-enwik8` — across batch sizes 1–1024 and sequence lengths 32–4095. Weights were fetched through the `HF_ENDPOINT` mirror already configured in the environment (`hf-mirror.com`; the hub API needs a `User-Agent` header). Total wall-clock 20 min 44 s, mean 62 s/problem.
 
@@ -165,6 +165,17 @@ Phase II targets outperforming the eager-mode reference. Baseline measurements f
 | Hand-written wmma (best of 258 configurations) | 2333 µs | 0.68× |
 
 **First submission to clear the official gate.** A mcblas-backed kernel employing fp16 inputs with fp32 accumulation was evaluated through the complete `eval_kernel_against_ref` pipeline, yielding `compiled = True`, `correctness = True` (5/5 trials), and a **speedup of 1.693×** over the eager reference, recorded on hardware `MetaX C500`.
+
+**Extended across the GEMM family.** The sibling `kda-on-maca` session carried this binding from the single L1 P1 result to the full GEMM and linear-chain surface, all gated through the same `eval_kernel_against_ref` (reference: eager fp32 with TF32 on):
+
+| scope | problems | faster than eager |
+|---|---:|---:|
+| L1 GEMM family | 13 | 11 |
+| L2 linear chains | 37 | 34 |
+| L3 networks using `nn.Linear` | 32 | 13 |
+| **total** | **82** | **58** |
+
+Largest wins: L3 ShallowWideMLP 6.87×, L2 P56 6.05×, L1 large-K 2.80×. Two limits bound this surface: the fp32 1e-4 tolerance makes the bf16 ceiling (812 µs, 1.96×) unreachable on cancellation-prone inputs, and the four remaining boundary problems each have a single matmul that is precisely the error-injecting layer, so selective fp32 routing spends the only acceleration the model had. The wmma path is not viable on this SDK: all 258 hand-written configurations were built on the broken `load_matrix_sync`/`store_matrix_sync` primitives documented in §6.2. Full detail, including the mcblas calling conventions (reversed operand order with per-matrix leading dimensions, strides in elements not bytes), is recorded in [`kda-on-maca`](https://github.com/Dryoung95/kda-on-maca)'s `README.md` and `defects/README.md`.
 
 A precision study confirms this result is not an artifact of lenient tolerance: on the problem's actual `torch.rand` inputs (positive-valued), the measured relative error is 2.9e-6 — comfortably within the fp32 tolerance of 1e-4. Under signed, cancellation-prone distributions (`randn`), the absolute-error criterion becomes binding; however, the fp16-input path in fact achieves *lower* relative error (3.6e-5) than the pure-fp32 mcblas path (3.2e-4), indicating that the observation reflects the strictness of the `allclose` criterion under input cancellation rather than any degradation in numerical accuracy.
 
@@ -264,12 +275,13 @@ Additionally, **mctlass** (the MACA counterpart of CUTLASS) was evaluated and fo
 
 ## 7. Outstanding Work
 
-- [ ] Extend the mcblas binding beyond L1 Problem 1 to the broader matmul family (Problems 2–18)
+- [x] Extend the mcblas binding beyond L1 Problem 1 — done by the sibling `kda-on-maca` session: **58 of 82** GEMM and linear-chain problems across L1/L2/L3 now beat eager through the official gate (§3.2). The binding work continues there (`/data/kda-on-maca`)
 - [x] Restore the official CLI (`scripts/run_and_check.py`) — unblocked via `shims/pydra.py` + `shims/modal.py`; verified end-to-end (§5)
 - [x] Re-run the memory-constrained problems on larger-capacity hardware — done on the 64 GB SKU (§3.1.1); all 57 now pass
 - [x] Correct the harness wrapper for zero-dimensional, integer, non-contiguous, and ≥2³¹-element outputs (§6.1)
-- [x] Align with the official evaluation gate — 5-trial correctness, fp32 1e-4 tolerance, eval mode; **249/250** (§3.1.2)
-- [x] Cover Level 4 (20 HuggingFace inference problems) — 20/20 pass at the official gate, weights fetched via the `HF_ENDPOINT` mirror (§3.1.3)
+- [x] Align with the official evaluation gate — 5-trial correctness, fp32 1e-4 tolerance, eval mode; **249/250** unpatched, 250/250 under the D7-safe conv patch (§3.1.2, §3.1.3)
+- [x] Cover Level 4 (20 HuggingFace inference problems) — 20/20 pass at the official gate, weights fetched via the `HF_ENDPOINT` mirror (§3.1.4)
+- [ ] Measure the full 270-problem baseline timing sweep (running; `perf-baseline.jsonl`) — gives every problem an eager reference time for future candidate work
 
 ---
 

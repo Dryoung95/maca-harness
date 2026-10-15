@@ -222,6 +222,18 @@ def run_one(level: int, problem_id: int, dataset, verbose: bool = False, build_r
                          "avg_difference", "correctness_issue", "hardware", "device",
                          "correctness_trials")
             }
+            # Timing fields live at the top level of KernelExecResult, not in
+            # metadata. Units are MILLISECONDS (confirmed against the known
+            # L1 P1 eager fp32 baseline of 1592 us = 1.592 ms; -1.0 or None
+            # means "not measured"). Capture unconditionally so a correctness
+            # run also yields timing without a rerun -- a perf sweep's point.
+            result["runtime_ms"] = float(eval_result.runtime) if eval_result.runtime is not None else None
+            result["ref_runtime_ms"] = float(eval_result.ref_runtime) if eval_result.ref_runtime is not None else None
+            if (result["runtime_ms"] and result["ref_runtime_ms"]
+                    and result["runtime_ms"] > 0 and result["ref_runtime_ms"] > 0):
+                result["speedup"] = result["ref_runtime_ms"] / result["runtime_ms"]
+            else:
+                result["speedup"] = None
             if eval_result.compiled and eval_result.correctness:
                 result["status"] = "passed"
                 result["failure_class"] = "none"

@@ -52,3 +52,9 @@ probe_determinism_p76_rerun.log
 # Full baseline timing sweep artifacts (regenerable)
 perf_build/
 perf-baseline.log
+perf-baseline_summary.json
+perf-baseline.jsonl.premerge
+rerun_l4.log
+
+# Sibling-session run artifacts inside the pristine tree
+KernelBench/KernelBench/level3/runs/

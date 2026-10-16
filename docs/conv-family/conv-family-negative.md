@@ -132,12 +132,20 @@ cross-file imports). From the repository root:
 
 ```bash
 source env.sh            # required: puts mcdnn headers on the include path
-python3 docs/conv-family/probe_conv_algo.py         #Finding 2 (8-algo sweep)
-python3 docs/conv-family/probe_conv_bisect.py       #Finding 2 (vendor-config bisect)
-python3 docs/conv-family/probe_conv_f16.py          #Finding 1 (dtype pairing)
-python3 docs/conv-family/probe_conv_gate_shape.py   #Finding 2 (real L1 shapes, TF32-on ref)
-python3 docs/conv-family/probe_conv_im2col.py       #Finding 3
+python3 docs/conv-family/probe_conv_algo.py         # Finding 2 (algo instantiation) + Finding 4 (the wrong-yardstick trap)
+python3 docs/conv-family/probe_conv_bisect.py       # Finding 2 (vendor-config bisect)
+python3 docs/conv-family/probe_conv_f16.py          # Finding 1 (dtype pairing)
+python3 docs/conv-family/probe_conv_gate_shape.py   # Finding 2 (real L1 shapes, TF32-on ref — the numbers in the table)
+python3 docs/conv-family/probe_conv_im2col.py       # Finding 3
 ```
+
+Note on `probe_conv_algo.py`: it is the first-generation probe, and its
+maxdiff column reproduces the *wrong* reading — the everything-is-broken
+3.7 of Finding 4 — because its eager reference predates the TF32
+yardstick correction. What it correctly establishes, and what Finding 2
+cites it for, is which of the 8 algorithms are instantiated at all. The
+Finding 2 correctness table comes from `probe_conv_gate_shape.py`, which
+measures against the gate's actual TF32-on reference.
 
 Each writes its raw JSON next to itself under `docs/conv-family/runs/`
 (`Path(__file__).resolve().parent / "runs"`), and those committed JSON files

@@ -17,6 +17,16 @@ matter, on a small conv, and reports for each:
 
 Only the combinations that query AND execute AND match the reference are
 candidates for FastConv2d.
+
+Caveat: this is the *first-generation* probe — the eager reference here is
+fp32 without the TF32 question settled, so its maxdiff column reproduces
+the 3.7 "everything is broken" reading described in Finding 4 of
+conv-family-negative.md. The algorithm *instantiation* facts it establishes
+(only IMPLICIT_PRECOMP_GEMM and FFT_TILING work; the other six return
+MCDNN_STATUS_NOT_SUPPORTED on the workspace query) are unaffected and are
+the ones Finding 2 cites. The correctness table in Finding 2 comes from
+probe_conv_gate_shape.py, which measures against the gate's actual TF32-on
+reference.
 """
 import json
 import sys
